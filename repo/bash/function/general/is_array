@@ -1,0 +1,2 @@
+# check if variable is array, returns 0 on success, 1 otherwise
+https://gist.github.com/coderofsalvation/8377369/raw/c1c24d17a95f8b9b35a4cde80941337d6b35a9af/is_array.bash
