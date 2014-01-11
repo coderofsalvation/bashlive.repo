@@ -1,0 +1,2 @@
+# decodes an urlencoded string (%20 to ' ' e.g.)
+https://gist.github.com/coderofsalvation/8349984/raw/2c4f53bba977d37f813ff029308058c7620f7448/urldecode.bash

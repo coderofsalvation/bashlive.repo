@@ -1,0 +1,2 @@
+# prints all 'deleted:' files from a 'git status' (usage: git rm $(showdeleted) )
+https://gist.github.com/coderofsalvation/8350523/raw/a1dc97d53fa6b802eaf4c1b8ba550c038679c68e/showdeleted.bash

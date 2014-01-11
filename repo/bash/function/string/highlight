@@ -1,0 +1,2 @@
+# highlights keywords in bashcode string (usage: echo "foo bar" | highlight "foo")
+https://gist.github.com/coderofsalvation/8351389/raw/1c3f94c6405a8b49f33a10ee4ce2e809b2c0db13/highlight

@@ -1,0 +1,2 @@
+# find and kill by brett terpstra (interactive, preventing repetitive ps aux + kill -9 )
+https://gist.github.com/coderofsalvation/8350368/raw/689b8274f64267f0f554a30df08519a086fe6840/findandkill.bash

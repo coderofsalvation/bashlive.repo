@@ -1,0 +1,2 @@
+# gets the nth line ( e.g. cat file.txt | getline 4 )
+https://gist.github.com/coderofsalvation/8325973/raw/getline.bash

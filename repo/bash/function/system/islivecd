@@ -1,0 +1,2 @@
+# detect a livecd system, return 0 on success, 1 otherwise
+https://gist.github.com/coderofsalvation/8324582/raw/islivecd.bash

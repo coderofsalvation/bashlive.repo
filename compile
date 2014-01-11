@@ -1,0 +1,48 @@
+#!/bin/bash 
+
+TOKEN="|||"
+SELF_PATH="$( dirname $(readlink -f "$0") )"
+cd $SELF_PATH/repo
+
+getBangFuInfo(){
+  cat "$1" | getline 1 | grep -v "#!.*" | sed 's/^# //g' 
+}
+
+getBangFuUrl(){
+  cat "$1" | getline 2
+}
+
+# gets the nth line ( e.g. cat file.txt | getline 4 )
+# @param int linenumber
+
+getline(){
+    cat - | sed -n "$1p"
+}
+
+function index(){
+  {
+    echo "# the following file is used by the bangfu.sh script, a tool to automatically access"
+    echo "# online code in your applications, see http://2webapp.com/bangfu"
+  } > ../index.txt
+  echo '{ "bangfus": [' > ../index.json; index=1
+  find . -mindepth 2 -type f | sort > index.cache.files 
+  while read file; do 
+    info="$( getBangFuInfo "$file" )"; url="$( getBangFuUrl "$file" )"
+    (( "${#url}"  == 0 )) && [[ ! -n COREUTILS ]] && echo "$file has no valid url..skipping" && continue 
+    curl -s --head "$url" &>/dev/null || { echo "invalid url: $url..skipping"; continue; }
+    printf "\r generating index.{txt,json} [adding $file]"; tput el; ((i++))
+    (( "${#info}" < 5 )) && info="no description found"
+    [[ "$file" =~ "\." ]] && file="${file%.*}" # remove extensions
+    printf "%-3s /%-40s %s$TOKEN%s\n" $i "${file/\.\/}" "$info" "$url" >> ../index.txt
+    json="$(printf "  {\"id\":%s,\"path\":\"%s\", \"info\":\"%s\", \"url\":\"%s\"}\n" $i "${file/\.\/}" "${info/\"/\'}" "$url")"
+    echo "$json," >> ../index.json; echo "$json"  >  index.cache.last
+  done < index.cache.files
+  sed -i "s|$(cat index.cache.last),|$(cat index.cache.last)|g" ../index.json; # correct last comma in json
+  echo "]}" >> ../index.json; echo ""
+  sed -i 's|/raw/.*/|/raw/|g' ../index.json;  # remove the commit hash of gitlinks to always refer 
+  sed -i 's|/raw/.*/|/raw/|g' ../index.txt;   # to the latest commit
+  rm index.cache.* # cleanup
+}
+
+index "$@"
+
