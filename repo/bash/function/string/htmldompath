@@ -1,0 +1,2 @@
+# adds htmldompaths to htmlcontent for easier line-by-line parsing ( fingers crossed! :D ) 
+https://gist.github.com/coderofsalvation/8390901/raw/f59770416134b8557f8c51749f611c6150a125ea/htmldompath.bash
