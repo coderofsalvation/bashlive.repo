@@ -5,6 +5,7 @@ official repo for BASHLIVE, a BASH communitysnippetfunctionframeworkcodereposito
 <img alt="" src="http://2webapp.com/bashlive/bashlive.png" style="height:0.8em"/>
 
 ### How to add snippets to the official repo
+
 Please fork it, add your files, and and do a pull request.
 99% change I'll merge it.
 
@@ -20,7 +21,8 @@ First line is the description, the second line is an url (usually raw gist-urls,
 ### dependancies 
 The contents of your gist-urls or text-urls with bashcode can contain this comment:
 
-    # @dependancy: sed grep
+    # @dependancy: sed grep 123
 
-this will let bashlive check the dependancies, so it can inform the user about missing applications when being inserted.
+This will let bashlive check the dependancies, so it can inform the user about missing applications when being inserted.
+Note: a number will mean that dependancy functions from bashlive will also be fetched
 
