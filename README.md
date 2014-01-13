@@ -32,4 +32,9 @@ If your item depends on bashlive items, just include them like so:
 
     # oneliner which does something 
     # @dependency: bashlive
-    / /bash/function/{supercut,trim}; curl "foo.com/bar.csv" | supercut 3 ',' | trim 
+    / :/bash/function/supercut
+    / :/bash/function/trim 
+
+    function foo(){
+      curl "foo.com/bar.csv" | supercut 3 ',' | trim 
+    }
