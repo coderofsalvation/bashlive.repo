@@ -1,0 +1,2 @@
+# determines whether receiving from pipeline (echo foo | mycommand) or from terminal/tty ( mycommand foo )
+https://gist.github.com/coderofsalvation/8441407/raw/0c3b71ab8f164dbf522cc153b6a68aabf44400d4/is_pipeline.bash
