@@ -1,0 +1,2 @@
+# removes decimals from number(strings), usage: echo 1.2 | float2integer   (output: 1)
+https://gist.github.com/coderofsalvation/8434902/raw/f4cb1eab8cbe078991aaa0cb7e84a12d3e3da374/float2integer.bash
