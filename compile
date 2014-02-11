@@ -4,11 +4,11 @@ TOKEN="|||"
 SELF_PATH="$( dirname $(readlink -f "$0") )"
 cd $SELF_PATH/repo
 
-getBangFuInfo(){
+getBashLiveInfo(){
   cat "$1" | getline 1 | grep -v "#!.*" | sed 's/^# //g' 
 }
 
-getBangFuUrl(){
+getBashLiveUrl(){
   cat "$1" | getline 2
 }
 
@@ -21,13 +21,13 @@ getline(){
 
 function index(){
   {
-    echo "# the following file is used by the bangfu.sh script, a tool to automatically access"
-    echo "# online code in your applications, see http://2webapp.com/bangfu"
+    echo "# the following file is used by the bashlive.sh script, a tool to automatically access"
+    echo "# online code in your applications, see http://bashlive.com "
   } > ../index.txt
-  echo '{ "bangfus": [' > ../index.json; index=1
+  echo '{ "bashlives": [' > ../index.json; index=1
   find . -mindepth 2 -type f | sort > index.cache.files 
   while read file; do 
-    info="$( getBangFuInfo "$file" )"; url="$( getBangFuUrl "$file" )"
+    info="$( getBashLiveInfo "$file" )"; url="$( getBashLiveUrl "$file" )"
     (( "${#url}"  == 0 )) && [[ ! -n COREUTILS ]] && echo "$file has no valid url..skipping" && continue 
     curl -s --head "$url" &>/dev/null || { echo "invalid url: $url..skipping"; continue; }
     printf "\r generating index.{txt,json} [adding $file]"; tput el; ((i++))
