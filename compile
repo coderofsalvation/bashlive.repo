@@ -19,6 +19,16 @@ getline(){
     cat - | sed -n "$1p"
 }
 
+compile_webpipes(){
+  webpipes="$(curl -s "http://neon-semiotics-490.appspot.com")"
+  echo "$webpipes" | while read url; do 
+    data="# $(curl -X OPTIONS "$url" | sed -n "3p")\n$url"
+    filename="$(basename "$url")"
+    tput el; printf "\rcompiling webpipe/$filename"
+    printf "$data" > "webpipe/$filename"
+  done
+}
+
 function index(){
   {
     echo "# the following file is used by the bashlive.sh script, a tool to automatically access"
@@ -44,5 +54,6 @@ function index(){
   rm index.cache.* # cleanup
 }
 
+compile_webpipes
 index "$@"
 
