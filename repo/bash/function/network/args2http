@@ -1,0 +1,2 @@
+# converts commandline arguments 'one --flag "123 4"' e.g. to a http get-string '?1=one&flag=123%204'
+https://gist.github.com/coderofsalvation/8998516/raw/f537e6431a620ea3b57ed7cf8727126a3d0880bd/args2http.bash
