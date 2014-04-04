@@ -1,0 +1,2 @@
+# checks whether bash/script is executed by a human (and not a pipe, or scp e.g.)
+https://gist.githubusercontent.com/coderofsalvation/9974142/raw/7be7aa8d9ff837c53ef55de726751b04ad8e7241/is_interactive.bash
