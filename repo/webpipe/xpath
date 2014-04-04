@@ -1,2 +1,2 @@
-# prints values from xml based on given xpath 
+# prints values from xml based on given xpath (can be commaseperated)
 http://neon-semiotics-490.appspot.com/xpath
