@@ -1,0 +1,2 @@
+# throttle calls to a certain commands to prevent flooding (handy for notifications/email/chatmessages etc)
+https://gist.githubusercontent.com/coderofsalvation/10663777/raw/85a0739c8d03cc38ea8a52cb92624793c71df161/throttle.bash

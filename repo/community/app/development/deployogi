@@ -1,0 +1,2 @@
+# automatic deployment of webapplications/databases on staging/production webservers using GIT hooks and bash triggers
+https://github.com/coderofsalvation/deployogi.git
