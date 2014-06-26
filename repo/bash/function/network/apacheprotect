@@ -1,2 +1,0 @@
-# protects a webdirectory by generating a .htaccess + .htpasswd file
-https://gist.github.com/coderofsalvation/8529766/raw/f5711b2d9dfa0dac40d230cdec385b3a0795999a/apacherestrict.bash

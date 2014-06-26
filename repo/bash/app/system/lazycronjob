@@ -1,2 +1,0 @@
-# start job if not running, else exit. Prevents cronjob overlap
-https://gist.github.com/coderofsalvation/8356298/raw/78dcf862066dab5832dbc6b6af51e28973b9873f/lazycron.bash

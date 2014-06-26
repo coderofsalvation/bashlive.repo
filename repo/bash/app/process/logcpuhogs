@@ -1,2 +1,0 @@
-# logs processes when certain cpu load is exceeded, great as cronjob
-https://gist.github.com/coderofsalvation/8435291/raw/e1b2cebf0e3fac9b9000a8887f5b629b59693b04/logcpuhogs.bash

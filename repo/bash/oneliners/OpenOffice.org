@@ -1,2 +1,0 @@
-# OpenOffice.org oneliners @ commandlinefu.com
-http://www.commandlinefu.com/commands/tagged/158/openoffice.org/plaintext
