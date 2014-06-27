@@ -18,7 +18,7 @@
 /bash/function/general/is_pipeline	determines whether receiving from pipeline (echo foo | mycommand) or from terminal/tty ( mycommand foo )	https://gist.github.com/coderofsalvation/8441407/raw/is_pipeline.bash
 /bash/function/general/is_url	checks if argument is an url	https://gist.github.com/coderofsalvation/8437817/raw/is_url.bash
 /bash/function/general/is_writable	checks if given file/path is writable	https://gist.github.com/coderofsalvation/8377555/raw/is_writable.bash
-/bash/function/input/getopts.tpl	getopts-snippet to easily pass commandline option/arguments to you shellscript	https://gist.github.com/coderofsalvation/8801742/raw/getopts.tpl.bash
+/bash/function/input/getopts.tpl	getopts-snippet to easily pass commandline option/arguments to you shellscript  	https://gist.github.com/coderofsalvation/8801742/raw/getopts.tpl.bash
 /bash/function/input/is_interactive	checks whether bash/script is executed by a human (and not a pipe, or scp e.g.)	https://gist.githubusercontent.com/coderofsalvation/9974142/raw/is_interactive.bash
 /bash/function/input/promptpassword	prompts user to type password (discrete)	https://gist.github.com/coderofsalvation/8270449/raw/password.bash
 /bash/function/input/subconsole	starts a simple subconsole shell with arrowkey (history) support	https://gist.githubusercontent.com/coderofsalvation/9940852/raw/subconsole.bash
@@ -34,7 +34,7 @@
 /bash/function/process/animrotate	shows fancy rotating anim while process is not finished	https://gist.github.com/coderofsalvation/8270372/raw/gistfile1.txt
 /bash/function/process/animwiggle	shows fancy wiggling animation while process is not finished	https://gist.github.com/coderofsalvation/8270356/raw/showanim
 /bash/function/process/findandkill	find and kill by brett terpstra (interactive, preventing repetitive ps aux + kill -9 )	https://gist.github.com/coderofsalvation/8350368/raw/findandkill.bash
-/bash/function/process/limit	limits shellscript to X simultanious processes	https://gist.github.com/coderofsalvation/8318643/raw/limitprocess.bash
+/bash/function/process/limit	limits shellscript to X simultanious processes 	https://gist.github.com/coderofsalvation/8318643/raw/limitprocess.bash
 /bash/function/process/single	limits script to one process (singleton)	https://gist.github.com/coderofsalvation/8258606/raw/singleprocess.bash
 /bash/function/process/throttle	throttle calls to a certain commands to prevent flooding (handy for notifications/email/chatmessages etc)	https://gist.githubusercontent.com/coderofsalvation/10663777/raw/throttle.bash
 /bash/function/string/alphanumeric	checks if string contains only alphanumeric chars	https://gist.github.com/coderofsalvation/8270476/raw/alphanumeric.bash
@@ -43,7 +43,7 @@
 /bash/function/string/explode	explodes string to array based on given delimiter	https://gist.github.com/coderofsalvation/8357468/raw/explode.bash
 /bash/function/string/getline	gets the nth line ( e.g. cat file.txt | getline 4 )	https://gist.github.com/coderofsalvation/8325973/raw/getline.bash
 /bash/function/string/highlight	highlights keywords in bashcode string (usage: echo "foo bar" | highlight "foo")	https://gist.github.com/coderofsalvation/8351389/raw/highlight
-/bash/function/string/htmldompath	adds htmldompaths to htmlcontent for easier line-by-line parsing ( fingers crossed! :D )	https://gist.github.com/coderofsalvation/8390901/raw/htmldompath.bash
+/bash/function/string/htmldompath	adds htmldompaths to htmlcontent for easier line-by-line parsing ( fingers crossed! :D ) 	https://gist.github.com/coderofsalvation/8390901/raw/htmldompath.bash
 /bash/function/string/htmlentities	converts special htmlcharacters into htmlentities	https://gist.github.com/coderofsalvation/8379355/raw/htmlentities
 /bash/function/string/htmlgreplinks	tries to extract links from htmlcontent (hint: use with htmldompath)	https://gist.github.com/coderofsalvation/8391480/raw/htmlgreplinks.bash
 /bash/function/string/implode	collapses arguments / list to single string	https://gist.github.com/coderofsalvation/8357371/raw/implode.bash
@@ -72,8 +72,8 @@
 /community/app/development/bashwapp	Deadsimple desktop application skeleton using only bash, html, nc and a webbrowser	https://github.com/coderofsalvation/bashwapp.git
 /community/app/development/bugtracker	Simple Bug / ToDo tracker for the command line	https://gist.github.com/coderofsalvation/8350248/raw/bug.bash
 /community/app/development/deployogi	automatic deployment of webapplications/databases on staging/production webservers using GIT hooks and bash triggers	https://github.com/coderofsalvation/deployogi.git
-/community/app/development/testosteron	simple unit/boxtesting-tool using bash, directories and files in whatever programming language you want (simplified alternative to PHPUnit)	https://github.com/coderofsalvation/testosteron.git
-/community/app/file/bashdownjson	portable/easy way of generating of jsonfeeds using commandline (piping) using bashdown templates	https://github.com/coderofsalvation/bashdownjson.git
+/community/app/development/testosteron	simple unit/boxtesting-tool using bash, directories and files in whatever programming language you want (simplified alternative to PHPUnit) 	https://github.com/coderofsalvation/testosteron.git
+/community/app/file/bashdownjson	portable/easy way of generating of jsonfeeds using commandline (piping) using bashdown templates 	https://github.com/coderofsalvation/bashdownjson.git
 /community/app/file/bashdownrss	portable/easy way of generating of rssfeeds using commandline (piping) using bashdown	https://github.com/coderofsalvation/bashdownrss.git
 /community/app/file/dropbox	upload, download, list or delete files from Dropbox	https://raw2.github.com/andreafabrizi/Dropbox-Uploader/master/dropbox_uploader.sh
 /community/app/file/jason	easily read/write/traverse json files  (see https://github.com/pvande/jason )	https://raw2.github.com/pvande/jason/master/jason
@@ -82,10 +82,10 @@
 /community/app/file/ticktick	TickTick enables you to put JSON in bash scripts. Yes, just encapsulate them with two back-ticks.	https://github.com/kristopolous/TickTick.git
 /community/app/graphics/comicize	automatically trace a bitmapfile into a vectorfile using imagemagick and potrace (handy for scanned B/W comics)	https://gist.github.com/coderofsalvation/8350208/raw/comicize
 /community/app/language/php/lsmail	deadsimple console imapclient (think: ls my@gmail.com ) written in bash & php	https://github.com/coderofsalvation/lsmail.git
-/community/app/language/php/xdebug	a cmdline utility to test xdebug settings and to easify automated, multi-user profiling and tracing.	https://raw2.github.com/coderofsalvation/xdebug/master/contrib/xdebugc
+/community/app/language/php/xdebug	 a cmdline utility to test xdebug settings and to easify automated, multi-user profiling and tracing.	https://raw2.github.com/coderofsalvation/xdebug/master/contrib/xdebugc
 /community/app/language/php/xpath	xpath on the commandline (php glue)	https://gist.github.com/coderofsalvation/7747273/raw/xpathbash
 /community/app/multimedia/drumslicer	detects audiofile, and automatically slices an audiofile into several hits	https://gist.github.com/coderofsalvation/7718992/raw/soxdrumslicer
-/community/app/multimedia/samplemultishotifier desktop html-bashwapp whic expands your traditional hardware/software samplers using many-samples-in-one-sample (poor man's soundfont).	https://github.com/coderofsalvation/sample-multi-shotifier.git
+/community/app/multimedia/samplemultishotifier	desktop html-bashwapp whic expands your traditional hardware/software samplers using many-samples-in-one-sample (poor man's soundfont).	https://github.com/coderofsalvation/sample-multi-shotifier.git
 /community/app/multimedia/soxmasterhouse	automatically mastering of audio using sox/ladspa/vst	https://github.com/coderofsalvation/soxmasterhouse.git
 /community/app/network/bashttpd	A web server written in bash	https://github.com/avleen/bashttpd.git
 /community/app/network/restconsole	restconsole, a simple curl REST api wrapper for bash	https://gist.githubusercontent.com/coderofsalvation/9943621/raw/restconsole.bash
@@ -96,32 +96,33 @@
 /community/app/template/bashdown	markdown to html converter with bash as templating language	https://github.com/coderofsalvation/bashdown.git
 /community/completion/git/completion	git completion commands, tab away instead of typing	https://gist.github.com/markjaquith/1667087/raw/git-completion.bash
 /community/completion/go/completion	completion for go programming language files	https://raw2.github.com/kura/go-bash-completion/master/go
-/community/completion/googlecl/completion	completion for googlecl	https://raw2.github.com/bobthecow/googlecl-completion/master/googlecl-completion.bash
+/community/completion/googlecl/completion	completion for googlecl 	https://raw2.github.com/bobthecow/googlecl-completion/master/googlecl-completion.bash
 /community/completion/heroku/completion	simplistic completion for heroku	https://raw2.github.com/rafmagana/heroku_bash_completion/master/heroku_bash_completion.sh
 /community/completion/mysql/completion	databases and usernames completion for mysql	https://raw2.github.com/florianeckerstorfer/mysql-bash-completion/master/mysql-completion.bash
 /community/completion/ncat/completion	completion for ncat	https://raw2.github.com/bonsaiviking/nmap-completion/master/ncat
 /community/completion/nmap/completion	nmap completion	https://raw2.github.com/bonsaiviking/nmap-completion/master/nmap
 /community/completion/nodejs/npm-completion	bash completion for npm	https://raw2.github.com/aziz/dotfiles/master/bash/completion/npm.completion.bash
 /community/completion/pandoc/completion	completion for perl's gemdoc	https://raw2.github.com/dsanson/pandoc-completion/master/pandoc-completion.bash
-/community/completion/php/composer-completion  completion for composer phar packages	https://raw2.github.com/qbbr/symfony-bash-completion/master/composer-autocomplete.bash
-/community/completion/php/symfony2.completion  completion for symfony2 php framework	https://raw2.github.com/qbbr/symfony-bash-completion/master/symfony2-autocomplete.bash
+/community/completion/php/composer-completion	completion for composer phar packages	https://raw2.github.com/qbbr/symfony-bash-completion/master/composer-autocomplete.bash
+/community/completion/php/symfony2.completion	completion for symfony2 php framework	https://raw2.github.com/qbbr/symfony-bash-completion/master/symfony2-autocomplete.bash
 /community/completion/rails/completion	commandline completion for ruby on rails	https://raw2.github.com/jweslley/rails_completion/master/rails.bash
 /community/completion/rubygem/completion	completion ruby's gem tool	https://raw2.github.com/pdkl95/rubygems-completion/master/rubygems-completion.bash
 /community/completion/virtualbox/completion	commandline completion for virtual box	https://raw2.github.com/tfmalt/bash-completion-virtualbox/master/vboxmanage_completion.bash
 /community/framework/balls/install	http/api server	https://github.com/jayferd/balls.git
-/community/framework/bang.sh/install	Bash Framework, see http://bangsh.com for more info	https://gist.github.com/coderofsalvation/8336145/raw/bangshinstall.bash
+/community/framework/bang.sh/install	Bash Framework, see http://bangsh.com for more info 	https://gist.github.com/coderofsalvation/8336145/raw/bangshinstall.bash
 /community/framework/bashinator/install	Framework with Flexible and powerful message handling, exhaustive debugginginfo, stacktraces and more @ http://www.bashinator.org	https://gist.github.com/coderofsalvation/8336171/raw/bashinatorinstall.bash
-/community/framework/rerun/install	modular shellscript framework	https://github.com/rerun/rerun.git
+/community/framework/rerun/install	modular shellscript framework 	https://github.com/rerun/rerun.git
 /community/framework/shunit2/install	xUnit based unit testing for unix shellscripts	https://gist.github.com/coderofsalvation/8336201/raw/shunit2install.bash
 /community/language/php/runphpcode	runs phpcode on the commandline,usage: runphpcode "printf('hellow world');"	https://gist.github.com/coderofsalvation/8421296/raw/runphpcode.bash
 /community/language/python2/jsonprettyprint	formats (pretty print) a json string	https://gist.github.com/coderofsalvation/8344926/raw/jsonprettyprint.bash
 /community/language/python2/webserver	oneliner to turn current directory into web fileserveri	https://gist.github.com/coderofsalvation/8421184/raw/pythonwebserver.bash
 /community/library/bsfl/install	BSFL library, fancy colourfull logging output and more @ http://code.google.com/p/bsfl	https://gist.github.com/coderofsalvation/8338305/raw/bsflinstall.bash
-/community/library/libbash/install	libbash is a tool that enables bash dynamic-like shared libraries.	https://gist.github.com/coderofsalvation/8338323/raw/libbashinstall.bash
+/community/library/libbash/install	libbash is a tool that enables bash dynamic-like shared libraries. 	https://gist.github.com/coderofsalvation/8338323/raw/libbashinstall.bash
 /community/library/log4sh/install	flexible logging framework	https://gist.github.com/coderofsalvation/8338345/raw/log4shinstall.bash
 /community/multimedia/loopcrossfade	transforms audio file in seamless loopable audiofile using crossfade-trick (needs sox)	https://gist.github.com/coderofsalvation/7740333/raw/loopcrossfade
 /community/network/apacheprotect	protects a webdirectory by generating a .htaccess + .htpasswd file	https://gist.github.com/coderofsalvation/8529766/raw/apacherestrict.bash
 /community/network/openbrowser	desktopindependant way to view url in installed X browser	https://gist.github.com/coderofsalvation/8348496/raw/openbrowser.bash
+/community/network/resty	a tiny command line REST interface for bash and zsh	https://raw.githubusercontent.com/micha/resty/master/resty
 /community/oneliners/!!	!! oneliners @ commandlinefu.com	http://www.commandlinefu.com/commands/tagged/1539//plaintext
 /community/oneliners/32	32 oneliners @ commandlinefu.com	http://www.commandlinefu.com/commands/tagged/717/32/plaintext
 /community/oneliners/32bit	32bit oneliners @ commandlinefu.com	http://www.commandlinefu.com/commands/tagged/2372/32bit/plaintext
@@ -210,7 +211,7 @@
 /community/oneliners/.bash_profile	.bash_profile oneliners @ commandlinefu.com	http://www.commandlinefu.com/commands/tagged/907/.bash_profile/plaintext
 /community/oneliners/bashrc	bashrc oneliners @ commandlinefu.com	http://www.commandlinefu.com/commands/tagged/1428/bashrc/plaintext
 /community/oneliners/.bashrc	.bashrc oneliners @ commandlinefu.com	http://www.commandlinefu.com/commands/tagged/2320/.bashrc/plaintext
-/community/oneliners/bash String Manipulations bash String Manipulations oneliners @ commandlinefu.com	http://www.commandlinefu.com/commands/tagged/1278/bash-string-manipulations/plaintext
+/community/oneliners/bash String Manipulations	bash String Manipulations oneliners @ commandlinefu.com	http://www.commandlinefu.com/commands/tagged/1278/bash-string-manipulations/plaintext
 /community/oneliners/bash .svn	bash .svn oneliners @ commandlinefu.com	http://www.commandlinefu.com/commands/tagged/612/bash-.svn/plaintext
 /community/oneliners/bash tricks	bash tricks oneliners @ commandlinefu.com	http://www.commandlinefu.com/commands/tagged/552/bash-tricks/plaintext
 /community/oneliners/batch	batch oneliners @ commandlinefu.com	http://www.commandlinefu.com/commands/tagged/674/batch/plaintext
@@ -445,7 +446,7 @@
 /community/oneliners/dropbox	dropbox oneliners @ commandlinefu.com	http://www.commandlinefu.com/commands/tagged/1413/dropbox/plaintext
 /community/oneliners/dsmemberutil	dsmemberutil oneliners @ commandlinefu.com	http://www.commandlinefu.com/commands/tagged/2227/dsmemberutil/plaintext
 /community/oneliners/du	du oneliners @ commandlinefu.com	http://www.commandlinefu.com/commands/tagged/124/du/plaintext
-/community/oneliners/dummy file null file test file dummy file null file test file oneliners @ commandlinefu.com	http://www.commandlinefu.com/commands/tagged/2105/dummy-file-null-file-test-file/plaintext
+/community/oneliners/dummy file null file test file	dummy file null file test file oneliners @ commandlinefu.com	http://www.commandlinefu.com/commands/tagged/2105/dummy-file-null-file-test-file/plaintext
 /community/oneliners/dump	dump oneliners @ commandlinefu.com	http://www.commandlinefu.com/commands/tagged/817/dump/plaintext
 /community/oneliners/duplicate	duplicate oneliners @ commandlinefu.com	http://www.commandlinefu.com/commands/tagged/227/duplicate/plaintext
 /community/oneliners/duplicate directories	duplicate directories oneliners @ commandlinefu.com	http://www.commandlinefu.com/commands/tagged/632/duplicate-directories/plaintext
@@ -812,7 +813,7 @@
 /community/oneliners/macosx	macosx oneliners @ commandlinefu.com	http://www.commandlinefu.com/commands/tagged/127/macosx/plaintext
 /community/oneliners/mac os x	mac os x oneliners @ commandlinefu.com	http://www.commandlinefu.com/commands/tagged/1746/mac-os-x/plaintext
 /community/oneliners/macports	macports oneliners @ commandlinefu.com	http://www.commandlinefu.com/commands/tagged/2297/macports/plaintext
-/community/oneliners/MAC  Wireless hack change MAC  Wireless hack change oneliners @ commandlinefu.com	http://www.commandlinefu.com/commands/tagged/538/mac-wireless-hack-change/plaintext
+/community/oneliners/MAC  Wireless hack change	MAC  Wireless hack change oneliners @ commandlinefu.com	http://www.commandlinefu.com/commands/tagged/538/mac-wireless-hack-change/plaintext
 /community/oneliners/mail	mail oneliners @ commandlinefu.com	http://www.commandlinefu.com/commands/tagged/424/mail/plaintext
 /community/oneliners/mailboxes	mailboxes oneliners @ commandlinefu.com	http://www.commandlinefu.com/commands/tagged/965/mailboxes/plaintext
 /community/oneliners/Maildir	Maildir oneliners @ commandlinefu.com	http://www.commandlinefu.com/commands/tagged/964/maildir/plaintext
@@ -1413,7 +1414,7 @@
 /community/oneliners/type	type oneliners @ commandlinefu.com	http://www.commandlinefu.com/commands/tagged/1280/type/plaintext
 /community/oneliners/typing	typing oneliners @ commandlinefu.com	http://www.commandlinefu.com/commands/tagged/1078/typing/plaintext
 /community/oneliners/Ubuntu	Ubuntu oneliners @ commandlinefu.com	http://www.commandlinefu.com/commands/tagged/44/ubuntu/plaintext
-/community/oneliners/ubuntu linux bash cli apt aptitude ubuntu linux bash cli apt aptitude oneliners @ commandlinefu.com	http://www.commandlinefu.com/commands/tagged/969/ubuntu-linux-bash-cli-apt-aptitude/plaintext
+/community/oneliners/ubuntu linux bash cli apt aptitude	ubuntu linux bash cli apt aptitude oneliners @ commandlinefu.com	http://www.commandlinefu.com/commands/tagged/969/ubuntu-linux-bash-cli-apt-aptitude/plaintext
 /community/oneliners/udev	udev oneliners @ commandlinefu.com	http://www.commandlinefu.com/commands/tagged/999/udev/plaintext
 /community/oneliners/udevadm	udevadm oneliners @ commandlinefu.com	http://www.commandlinefu.com/commands/tagged/1407/udevadm/plaintext
 /community/oneliners/udp	udp oneliners @ commandlinefu.com	http://www.commandlinefu.com/commands/tagged/831/udp/plaintext
@@ -1688,12 +1689,12 @@
 /git/alias/timeline	git alias to show timeline in ascii (usage: git timeline)	https://gist.github.com/coderofsalvation/8350585/raw/gittimeline.bash
 /git/showdeleted	prints all 'deleted:' files from a 'git status' (usage: git rm $(showdeleted) )	https://gist.github.com/coderofsalvation/8350523/raw/showdeleted.bash
 /webpipe/cssselect	extracts components from html using css selector or converts it to xpath	http://neon-semiotics-490.appspot.com/cssselect
-/webpipe/csv2json	converts a csv string into a json string	http://neon-semiotics-490.appspot.com/csv2json
-/webpipe/json2csv	converts a json string into a csv	http://neon-semiotics-490.appspot.com/json2csv
-/webpipe/jsonpath	prints values from json based on json path	http://neon-semiotics-490.appspot.com/jsonpath
-/webpipe/json_print_r	prettyprints a json string using the php print_r() function	http://neon-semiotics-490.appspot.com/json_print_r
+/webpipe/csv2json	converts a csv string into a json string 	http://neon-semiotics-490.appspot.com/csv2json
+/webpipe/json2csv	converts a json string into a csv 	http://neon-semiotics-490.appspot.com/json2csv
+/webpipe/jsonpath	prints values from json based on json path 	http://neon-semiotics-490.appspot.com/jsonpath
+/webpipe/json_print_r	prettyprints a json string using the php print_r() function 	http://neon-semiotics-490.appspot.com/json_print_r
 /webpipe/markdown	Turns markdown into html	http://neon-semiotics-490.appspot.com/markdown
-/webpipe/striphtml	removes tags from html, converts it to human readable text	http://neon-semiotics-490.appspot.com/striphtml
+/webpipe/striphtml	removes tags from html, converts it to human readable text 	http://neon-semiotics-490.appspot.com/striphtml
 /webpipe/url2html	decorates links found in text with html anchortags	http://neon-semiotics-490.appspot.com/url2html
-/webpipe/xml2json	converts an xml string into a json string	http://neon-semiotics-490.appspot.com/xml2json
+/webpipe/xml2json	converts an xml string into a json string 	http://neon-semiotics-490.appspot.com/xml2json
 /webpipe/xpath	prints values from xml based on given xpath (can be commaseperated)	http://neon-semiotics-490.appspot.com/xpath

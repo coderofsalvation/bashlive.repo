@@ -4,6 +4,24 @@ official repo for BASHLIVE, a BASH communitysnippetfunctionframeworkcodereposito
 
 <img alt="" src="http://2webapp.com/bashlive/bashlive.png" style="height:0.8em"/>
 
+### How to have your own repo 
+
+The easiest way is look at 'index.txt', and create your own indexfile like so:
+
+    /some/snippet/identifierpath    this is a description    http://raw.gist.github.com/ioiu3453$/raw
+
+Bashlive can deal with the following formats:
+
+    <path><tab><description><tab><url>
+    <path><4 spaces><description><4 spaces><url>
+
+Then store this indexfile on a webserver (or gist), and add the index-url to bashlive (described [here](http://bashlive.com/features.html#Privatecompletionrepos))
+
+### Why generate an indexfile?
+
+Because this index compiler will automatically find out the latest commits of (nonraw) gisturls.
+This way, you don't need to update your indexfile when updating a gist (which is needed when you manually maintain a bashlive indexfile).
+
 ### How to add snippets to the official repo
 
 Please fork it, add your files, and and do a pull request.

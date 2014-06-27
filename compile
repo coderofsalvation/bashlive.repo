@@ -43,7 +43,7 @@ function index(){
     printf "\r generating index.{txt,json} [adding $file]"; tput el; ((i++))
     (( "${#info}" < 5 )) && info="no description found"
     [[ "$file" =~ "\." ]] && file="${file%.*}" # remove extensions
-    printf "%-3s /%-45s %s$TOKEN%s\n" $i "${file/\.\/}" "$info" "$url" >> ../index.txt
+    printf "/%s\t%s\t%s\n" "${file/\.\/}" "$info" "$url" >> ../index.txt
     json="$(printf "  {\"id\":%s,\"path\":\"%s\", \"info\":\"%s\", \"url\":\"%s\"}\n" $i "${file/\.\/}" "${info/\"/\'}" "$url")"
     echo "$json," >> ../index.json; echo "$json"  >  index.cache.last
   done < index.cache.files
