@@ -1,0 +1,2 @@
+# execute a sqlquery and output as csv (handy for generating quikcndirty sql reports e.g.)
+https://gist.github.com/coderofsalvation/7692376/raw/320f5dff7a23acc30874d329a9903b826e4e6418/sql2csv
