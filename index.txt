@@ -3,11 +3,11 @@
 /bash/function/date/rss	returns a rss date format	https://gist.github.com/coderofsalvation/8665966/raw/rssdate.bash
 /bash/function/date/timestamp	returns the current unix timestamp	https://gist.github.com/coderofsalvation/8665940/raw/timestamp.bash
 /bash/function/debug/stacktrace	print a stacktrace with a msg, exits with 1	https://gist.github.com/coderofsalvation/8324629/raw/stacktrace.bash
-/bash/function/file/csv2tsv	converts csv to tabdelimited string (makes stuff easier to parse with cut and awk)	https://gist.github.com/coderofsalvation/34a8350b5aaf1516cc21
+/bash/function/file/csv2tsv	converts csv to tabdelimited string (makes stuff easier to parse with cut and awk)	https://gist.githubusercontent.com/coderofsalvation/34a8350b5aaf1516cc21/raw/csv2tsv.bash
 /bash/function/file/csvget	easily extract field from a csv file	https://gist.github.com/coderofsalvation/466d7da29a89980399b4/raw/csvget.bash
 /bash/function/file/is_empty	checks if file is empty	https://gist.github.com/coderofsalvation/8270502/raw/isempty.bash
 /bash/function/file/is_newer	compare the dates of two files, return true (0) if file1 has been modified before file2	https://gist.github.com/coderofsalvation/8324557/raw/isnewer.bash
-/bash/function/file/tsv2csv	converts tab seperated output to (properly quoted) csv (export)	https://gist.github.com/coderofsalvation/7848a8adea32b882b1b2
+/bash/function/file/tsv2csv	converts tab seperated output to (properly quoted) csv (export)	https://gist.githubusercontent.com/coderofsalvation/7848a8adea32b882b1b2/raw/tsv2csv
 /bash/function/general/eventhandler	simple event & exception handling for bash	https://gist.github.com/coderofsalvation/8268365/raw/exceptions.bash
 /bash/function/general/in_array	check if argument exist as value in given array	https://gist.github.com/coderofsalvation/8270452/raw/inarray.bash
 /bash/function/general/is_array	check if variable is array, returns 0 on success, 1 otherwise	https://gist.github.com/coderofsalvation/8377369/raw/is_array.bash
@@ -33,10 +33,9 @@
 /bash/function/network/has_internet	checks whether bash has access to internet using ping	https://gist.github.com/coderofsalvation/8270458/raw/hasinternet.bash
 /bash/function/network/iptools	ip functions (check whether ip is in given range e.g.)	https://gist.github.com/coderofsalvation/8933625/raw/iptools.bash
 /bash/function/network/listenport	simple server listening on port using nc (netcat)	https://gist.github.com/coderofsalvation/8348533/raw/listenport.bash
-/bash/function/network/remotewrapper	remote command wrappers (poor man's scalability: run commands as if they were locally present)	https://gist.github.com/coderofsalvation/c60a1cde22d972828d4c
 /bash/function/process/animrotate	shows fancy rotating anim while process is not finished	https://gist.github.com/coderofsalvation/8270372/raw/gistfile1.txt
 /bash/function/process/animwiggle	shows fancy wiggling animation while process is not finished	https://gist.github.com/coderofsalvation/8270356/raw/showanim
-/bash/function/process/async	runs a command asynchronously (and with callback when done)	https://gist.github.com/coderofsalvation/49671bacd22fcefcb122
+/bash/function/process/async	runs a command asynchronously (and with callback when done)	https://gist.githubusercontent.com/coderofsalvation/49671bacd22fcefcb122/raw/async.bash
 /bash/function/process/findandkill	find and kill by brett terpstra (interactive, preventing repetitive ps aux + kill -9 )	https://gist.github.com/coderofsalvation/8350368/raw/findandkill.bash
 /bash/function/process/limit	limits shellscript to X simultanious processes 	https://gist.github.com/coderofsalvation/8318643/raw/limitprocess.bash
 /bash/function/process/single	limits script to one process (singleton)	https://gist.github.com/coderofsalvation/8258606/raw/singleprocess.bash
@@ -51,7 +50,7 @@
 /bash/function/string/htmlentities	converts special htmlcharacters into htmlentities	https://gist.github.com/coderofsalvation/8379355/raw/htmlentities
 /bash/function/string/htmlgreplinks	tries to extract links from htmlcontent (hint: use with htmldompath)	https://gist.github.com/coderofsalvation/8391480/raw/htmlgreplinks.bash
 /bash/function/string/implode	collapses arguments / list to single string	https://gist.github.com/coderofsalvation/8357371/raw/implode.bash
-/bash/function/string/joinlines	join n lines into one line	https://gist.github.com/coderofsalvation/aa9a52fbb22e101845a6
+/bash/function/string/joinlines	join n lines into one line	https://gist.githubusercontent.com/coderofsalvation/aa9a52fbb22e101845a6/raw/joinlines.bash
 /bash/function/string/lines_to_csv	merges x number of lines to one commaseperated line`	https://gist.githubusercontent.com/coderofsalvation/9143744/raw/lines_to_csv.bash
 /bash/function/string/lowercase	converts uppercase string to lowercase ('FOO' to 'foo')	https://gist.github.com/coderofsalvation/b3b3ca371b6a52a49beb/raw/lowercase.bash
 /bash/function/string/multigrep	greps on keywords (keyword1 AND keyword2 AND ..)	https://gist.github.com/coderofsalvation/8376782/raw/multigrep.bash
@@ -129,6 +128,7 @@
 /community/multimedia/loopcrossfade	transforms audio file in seamless loopable audiofile using crossfade-trick (needs sox)	https://gist.github.com/coderofsalvation/7740333/raw/loopcrossfade
 /community/network/apacheprotect	protects a webdirectory by generating a .htaccess + .htpasswd file	https://gist.github.com/coderofsalvation/8529766/raw/apacherestrict.bash
 /community/network/openbrowser	desktopindependant way to view url in installed X browser	https://gist.github.com/coderofsalvation/8348496/raw/openbrowser.bash
+/community/network/remotewrapper	remote command wrappers (poor man's scalability: run commands as if they were locally present)	https://gist.githubusercontent.com/coderofsalvation/c60a1cde22d972828d4c/raw/remotewrapper.bash
 /community/network/resty	a tiny command line REST interface for bash and zsh	https://raw.githubusercontent.com/micha/resty/master/resty
 /community/oneliners/!!	!! oneliners @ commandlinefu.com	http://www.commandlinefu.com/commands/tagged/1539//plaintext
 /community/oneliners/32	32 oneliners @ commandlinefu.com	http://www.commandlinefu.com/commands/tagged/717/32/plaintext
