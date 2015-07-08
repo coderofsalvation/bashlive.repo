@@ -6,6 +6,10 @@ official repo for BASHLIVE, a BASH communitysnippetfunctionframeworkcodereposito
 
 see [HERE](https://github.com/coderofsalvation/bashlive) for the BASHLIVE-repo itself
 
+### Improve the website 
+
+The website can be found in the 'gh-pages' branch
+
 ### How to have your own repo 
 
 The easiest way is look at 'index.txt', and create your own indexfile like so:
