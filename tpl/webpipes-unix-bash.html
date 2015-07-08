@@ -1,0 +1,50 @@
+  <h1 style="display:inline">Bashlive Webpipes</h1>
+  <p><br>
+  Webpipes are distributed awesomeness in the cloud.<br>
+  Instead of being limited to local commands, you can use commands which actually run elsewhere.<br>
+  BASHLIVE easily incorporates <a target="_blank" href="http://webpipe.bashlive.com">Webpipe.bash</a> to achieve this.<br>
+  The public webpipe entrypoint is hosted at http://bashlive.com/webpipes.<br>
+  <br>
+  <img src="https://raw.github.com/coderofsalvation/webpipe.bash/master/webpipe.png"/> 
+  </p>
+    <pre  data-language='csharp' style='display:none'>                                                                                        
+      <code  data-language='csharp'></code>
+    </pre>
+		<h2>List your pipes</h2>
+    <pre  data-language='csharp'>
+      <code  data-language='csharp'>
+$ webpipe::list
+  http://foobar.com/xpath
+  http://foobar.com/markdown
+  http://foobar.com/jsonpath
+  [..MORE..]
+</code>
+    </pre>
+  <p>You can run webpipes just like regular unix commands, but they'll operate in the cloud :</p>
+    <pre  data-language='csharp'>
+      <code  data-language='csharp'>
+$ echo '<xml><foo><bar>123</bar></foo></xml>' | xpath //foo/bar
+123
+</code></pre>
+  <p>Bashlive also provides some webpipes, see <a href="webpipes.html" >here</a> for their usage</p>
+    <h2>Further questions</h2>
+   <p>&nbsp;</p>
+      <ul>
+        <li>How an I add a webpipe?</li>
+        <li>Indexing a single webpipe?</li>
+        <li>How can I build my own webpipes in the cloud?</li>
+        <li>Security?</li>
+      </ul>
+    <p class="well">
+      See the <a href="http://webpipe.bashlive.com">Webpipe.bash</a> site
+    </p>
+
+    <h2>Submit webpipes to bashlive?</h2>
+   <p>
+    To get included in the bashlive searchengine: submit webpipes by cloning <a href="https://github.com/coderofsalvation/bashlive.repo" target="_blank">this repo</a> along with a pull request. Make sure to put your webpipe info in the directory 'community/webpipe'.
+    </p>
+		<h2>Copyright</h2>
+        <p class="well">
+            Copyright © 2014 Coder of Salvation 
+        </p>
+      </div>

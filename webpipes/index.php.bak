@@ -1,0 +1,3 @@
+<?
+header("Location: http://webpipephp-bashlive.rhcloud.com");
+?>

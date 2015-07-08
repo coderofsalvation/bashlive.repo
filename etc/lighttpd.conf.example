@@ -1,0 +1,10 @@
+$HTTP["host"] =~ "(^|www\.)bashlive.com(\:[0-9]*)?$" {
+  server.document-root = "/var/www/domains/bashlive.com/src"
+  #server.errorlog = "/srv/web/domains/bashlive.com/src/data/lighttpd.error.log"
+  #accesslog.filename = "/srv/web/domains/bashlive.com/src/lighttpd.access.log"
+  server.error-handler-404 = "/index.html"
+  #url.rewrite = (
+  #  "^/?!(cgi-bin|data|favicon.ico$).*)" => "/index.php",
+  #  "*" => "/index.php",
+  #)
+}

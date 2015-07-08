@@ -1,0 +1,1755 @@
+
+  <h1>Bashlive function reference</h2>
+  <p>Bashlive features a basic repository of functions which can be used in your bash apps.
+     We like to encourage you to leave feedback, so the bash-snippets can be improved if necessary.
+<br><br>(Last updated: Mon Feb 10 19:07:08 CET 2014)
+  </p>
+    <pre  data-language='csharp' style='display:none'>                                                                                        
+      <code  data-language='csharp'></code>
+    </pre>
+
+<h2>Date</h2><hr>
+
+    <h3>rss()</h3>
+    <p>
+    returns a rss date format
+
+    </p>
+    <pre  data-language='csharp'>                                                                                        
+      <code  data-language='csharp'># returns a rss date format
+# usage: echo "$(rssdate)"
+ 
+rssdate(){
+   date -R
+}</code>
+    </pre>
+    <div class='btn-group btn-group-xs'>
+      <a target='_blank' href='https://gist.github.com/coderofsalvation/8665966/' class='btn btn-default'>comment</a> 
+    </div>
+    <hr/>
+  
+
+    <h3>timestamp()</h3>
+    <p>
+    returns the current unix timestamp
+
+    </p>
+    <pre  data-language='csharp'>                                                                                        
+      <code  data-language='csharp'># returns the current unix timestamp
+# usage: echo "$(timestamp)"
+
+timestamp(){
+  date +%s
+}</code>
+    </pre>
+    <div class='btn-group btn-group-xs'>
+      <a target='_blank' href='https://gist.github.com/coderofsalvation/8665940/' class='btn btn-default'>comment</a> 
+    </div>
+    <hr/>
+  
+<h2>Debug</h2><hr>
+
+    <h3>stacktrace()</h3>
+    <p>
+    print a stacktrace with a msg, exits with 1
+
+    </p>
+    <pre  data-language='csharp'>                                                                                        
+      <code  data-language='csharp'># print a stacktrace with a msg, exits with 1
+
+function stacktrace()
+{  
+    if [ -n "$BASH" ]; then
+        _die_var_frame=0
+        while caller $_die_var_frame; do
+            _die_var_frame=$(expr $_die_var_frame + 1);
+        done
+    fi
+
+    printf "%s\\n" "$*"
+    exit
+}</code>
+    </pre>
+    <div class='btn-group btn-group-xs'>
+      <a target='_blank' href='https://gist.github.com/coderofsalvation/8324629/' class='btn btn-default'>comment</a> 
+    </div>
+    <hr/>
+  
+<h2>File</h2><hr>
+
+    <h3>csv()</h3>
+    <p>
+    prints out particular column of a csv
+
+    </p>
+    <pre  data-language='csharp'>                                                                                        
+      <code  data-language='csharp'># quickndirty csv column grep function (for easily selecting columns from csv e.g.)
+#
+# Usage: cat my.csv | csv column 2 
+#
+# csv is a handy database-format, its editable with an texteditor, importable/exportable by
+# tech and end-users (mysql/excel/php etc)
+#
+
+column(){
+  cat - | sed 's/,,,/###/g' | sed 's/,,/##/g' | sed 's/,/#/g' | cut -f$1 -d"#" | sed 's/"//g'
+}</code>
+    </pre>
+    <div class='btn-group btn-group-xs'>
+      <a target='_blank' href='https://gist.github.com/coderofsalvation/7692456/' class='btn btn-default'>comment</a> 
+    </div>
+    <hr/>
+  
+
+    <h3>isempty()</h3>
+    <p>
+    checks if file is empty
+
+    </p>
+    <pre  data-language='csharp'>                                                                                        
+      <code  data-language='csharp'># detect if arg is an empty file, returns 0 on sucess, 1 otherwise
+# @param string- string of a file
+# @dependancy wc
+
+is_empty()
+{  
+    [ -z "$1" ] &amp;&amp; return 1
+    if [ -f "$1" ] &amp;&amp; [ X"$(wc -c "$1" | cut -d" " -f1)" = X"0" ]; then
+        return 0
+    else
+        return 1
+    fi
+}</code>
+    </pre>
+    <div class='btn-group btn-group-xs'>
+      <a target='_blank' href='https://gist.github.com/coderofsalvation/8270502/' class='btn btn-default'>comment</a> 
+    </div>
+    <hr/>
+  
+
+    <h3>isnewer()</h3>
+    <p>
+    compare the dates of two files, return true (0) if file1 has been modified before file2
+
+    </p>
+    <pre  data-language='csharp'>                                                                                        
+      <code  data-language='csharp'># compare the dates of two files, return true (0) if file1 has
+# been modified more recently otherwise 1
+# @param string file1
+# @param string file2
+
+function isnewer()
+{   
+
+    [ $# -ne 2 ] &amp;&amp; return 1
+
+    if [ ! -f $1 ] || [ ! -f $2 ]; then
+        return 1       # No
+    fi
+
+    if [ -n "$(find $1 -newer $2 -print)" ]; then
+        return 0       # Yes
+    else
+        return 1       # No
+    fi
+}</code>
+    </pre>
+    <div class='btn-group btn-group-xs'>
+      <a target='_blank' href='https://gist.github.com/coderofsalvation/8324557/' class='btn btn-default'>comment</a> 
+    </div>
+    <hr/>
+  
+<h2>General</h2><hr>
+
+    <h3>eventhandler()</h3>
+    <p>
+    simple event & exception handling for bash
+
+    </p>
+    <pre  data-language='csharp'>                                                                                        
+      <code  data-language='csharp'># simple event / exception handling in bash
+#
+# Usage:
+#
+#   onFoo(){
+#     echo "onFoo() called width arg $1!"
+#   }
+#
+#   onExit(){
+#     echo "onExit called!"
+#   }
+#
+#   foo(){
+#     throw EVENT_FOO_OCCURED xyz
+#   }
+#
+#   addListener EVENT_FOO_OCCURED onFoo
+#   addListener EXIT onExit
+#   foo
+#
+# OUTPUT:
+#
+#   onFoo() called width arg xyz!
+#   onExit called!
+#
+
+declare -A LISTENERS
+
+throw(){
+  EVENT=$1; shift; for listener in "${LISTENERS[$EVENT]}"; do eval "$listener $@"; done
+}
+
+addListener(){
+  if ! test "${LISTENERS['$1']+isset}"; then LISTENERS["$1"]=""; fi
+  LISTENERS["$1"]+="$2 " # we can get away with this since functionnames never contain spaces
+}
+
+# convert exitcodes to events
+trap "throw EXIT"    EXIT
+trap "throw SIGINT"  SIGINT
+trap "throw SIGTERM" SIGTERM</code>
+    </pre>
+    <div class='btn-group btn-group-xs'>
+      <a target='_blank' href='https://gist.github.com/coderofsalvation/8268365/' class='btn btn-default'>comment</a> 
+    </div>
+    <hr/>
+  
+
+    <h3>in_array()</h3>
+    <p>
+    check if argument exist as value in given array
+
+    </p>
+    <pre  data-language='csharp'>                                                                                        
+      <code  data-language='csharp'># look for a value in an array, returns 0 on success, 1 otherwise
+# Usage: in_array "$needle" "${haystack[@]}"
+
+inarray()
+{   
+    [ -z "$1" ] &amp;&amp; return 1
+
+    if [ -n "$BASH" ]; then
+        _inarray_var_needle="$1"
+        shift
+        for element
+        do
+            [ X"$element" != X"$_inarray_var_needle" ] || return 0
+        done
+    fi
+    return 1
+}</code>
+    </pre>
+    <div class='btn-group btn-group-xs'>
+      <a target='_blank' href='https://gist.github.com/coderofsalvation/8270452/' class='btn btn-default'>comment</a> 
+    </div>
+    <hr/>
+  
+
+    <h3>is_array()</h3>
+    <p>
+    check if variable is array, returns 0 on success, 1 otherwise
+
+    </p>
+    <pre  data-language='csharp'>                                                                                        
+      <code  data-language='csharp'># check if variable is array, returns 0 on success, 1 otherwise
+# @param mixed 
+
+is_array()
+{   #detect if arg is an array, returns 0 on sucess, 1 otherwise
+    [ -z "$1" ] &amp;&amp; return 1
+    if [ -n "$BASH" ]; then
+        declare -p ${1} 2&gt; /dev/null | grep 'declare \-a' &gt;/dev/null &amp;&amp; return 0
+    fi
+    return 1
+}</code>
+    </pre>
+    <div class='btn-group btn-group-xs'>
+      <a target='_blank' href='https://gist.github.com/coderofsalvation/8377369/' class='btn btn-default'>comment</a> 
+    </div>
+    <hr/>
+  
+
+    <h3>is_dir()</h3>
+    <p>
+    checks if given parameter is a directory
+
+    </p>
+    <pre  data-language='csharp'>                                                                                        
+      <code  data-language='csharp'># checks if given parameter is a directory
+# @param string input
+# usage: is_dir /my/path || { echo "directory does not exist"; exit 1; }
+
+is_dir(){
+ [[ -d "$1" ]] &amp;&amp; return 0 || return 1;
+}</code>
+    </pre>
+    <div class='btn-group btn-group-xs'>
+      <a target='_blank' href='https://gist.github.com/coderofsalvation/8377488/' class='btn btn-default'>comment</a> 
+    </div>
+    <hr/>
+  
+
+    <h3>is_empty()</h3>
+    <p>
+    checks whether variable is empty
+
+    </p>
+    <pre  data-language='csharp'>                                                                                        
+      <code  data-language='csharp'># detect if arg is an empty file, returns 0 on sucess, 1 otherwise
+# @param string- string of a file
+# @dependancy wc
+
+is_empty()
+{  
+    [ -z "$1" ] &amp;&amp; return 1
+    if [ -f "$1" ] &amp;&amp; [ X"$(wc -c "$1" | cut -d" " -f1)" = X"0" ]; then
+        return 0
+    else
+        return 1
+    fi
+}</code>
+    </pre>
+    <div class='btn-group btn-group-xs'>
+      <a target='_blank' href='https://gist.github.com/coderofsalvation/8270502/' class='btn btn-default'>comment</a> 
+    </div>
+    <hr/>
+  
+
+    <h3>is_file()</h3>
+    <p>
+    checks if given parameter is a file
+
+    </p>
+    <pre  data-language='csharp'>                                                                                        
+      <code  data-language='csharp'># checks if given parameter is a file
+# @param string filename
+# usage: is_file my/path/foo.txt || echo "not a file"
+
+is_file(){
+  [[ -f "$1" ]] &amp;&amp; return 0 || return 1
+}</code>
+    </pre>
+    <div class='btn-group btn-group-xs'>
+      <a target='_blank' href='https://gist.github.com/coderofsalvation/8377515/' class='btn btn-default'>comment</a> 
+    </div>
+    <hr/>
+  
+
+    <h3>is_float()</h3>
+    <p>
+    determines if variable is float
+
+    </p>
+    <pre  data-language='csharp'>                                                                                        
+      <code  data-language='csharp'># determines if variable is float
+# @param string input
+# usage: is_float "12.0" &amp;&amp; echo "yes"
+
+is_float(){
+  echo "$1" | grep \\. | grep -Eq '^[-+]?[0-9]+\.?[0-9]*$' &amp;&gt;/dev/null &amp;&amp; return 0 || return 1
+}</code>
+    </pre>
+    <div class='btn-group btn-group-xs'>
+      <a target='_blank' href='https://gist.github.com/coderofsalvation/8377463/' class='btn btn-default'>comment</a> 
+    </div>
+    <hr/>
+  
+
+    <h3>is_function()</h3>
+    <p>
+    This function checks if an defined function or command exist.
+
+    </p>
+    <pre  data-language='csharp'>                                                                                        
+      <code  data-language='csharp'># This function checks if an defined function or command exist.
+#
+#  @param string $1 function name (required)
+#  @return bool
+#  @example:    function_exists "rc_myfunc" || exit 1
+ 
+function function_exists() {
+  [[ -z "$1" ]] &amp;&amp; return; eval $1 &gt;/dev/null 2&gt;&amp;1; return $?
+}</code>
+    </pre>
+    <div class='btn-group btn-group-xs'>
+      <a target='_blank' href='https://gist.github.com/coderofsalvation/8377399/' class='btn btn-default'>comment</a> 
+    </div>
+    <hr/>
+  
+
+    <h3>is_integer()</h3>
+    <p>
+    determines if parameter is an int
+
+    </p>
+    <pre  data-language='csharp'>                                                                                        
+      <code  data-language='csharp'># determines if parameter is an int
+# @param string input
+
+is_integer(){
+  number=$( echo "$1" | sed 's/^[-+]*[0-9]*//g' ); [[ -z "$number" ]] &amp;&amp; return 0 || return 1
+}</code>
+    </pre>
+    <div class='btn-group btn-group-xs'>
+      <a target='_blank' href='https://gist.github.com/coderofsalvation/8377153/' class='btn btn-default'>comment</a> 
+    </div>
+    <hr/>
+  
+
+    <h3>is_pipeline()</h3>
+    <p>
+    determines whether receiving from pipeline (echo foo | mycommand) or from terminal/tty ( mycommand foo )
+
+    </p>
+    <pre  data-language='csharp'>                                                                                        
+      <code  data-language='csharp'># determines whether receiving from pipeline (return 0) or from terminal/tty
+# usage: is_pipeline &amp;&amp; cat -
+
+is_pipeline(){
+  [[ -t 0 ]] &amp;&amp; return 1 || return 0 
+}</code>
+    </pre>
+    <div class='btn-group btn-group-xs'>
+      <a target='_blank' href='https://gist.github.com/coderofsalvation/8441407/' class='btn btn-default'>comment</a> 
+    </div>
+    <hr/>
+  
+
+    <h3>is_url()</h3>
+    <p>
+    checks if argument is an url
+
+    </p>
+    <pre  data-language='csharp'>                                                                                        
+      <code  data-language='csharp'># checks if argument is an url
+# usage: is_url "http://foo.com" &amp;&amp; echo "yes im an url"
+# @param string
+
+is_url(){
+  [[ "$1" =~ ^http: ]] &amp;&amp; return 0 || return 1
+}</code>
+    </pre>
+    <div class='btn-group btn-group-xs'>
+      <a target='_blank' href='https://gist.github.com/coderofsalvation/8437817/' class='btn btn-default'>comment</a> 
+    </div>
+    <hr/>
+  
+
+    <h3>is_writable()</h3>
+    <p>
+    checks if given file/path is writable
+
+    </p>
+    <pre  data-language='csharp'>                                                                                        
+      <code  data-language='csharp'># checks if given file/path is writable
+# @param string filename
+# usage: is_writable my/path/foo.txt || echo "not writable"
+ 
+is_writable(){
+  [[ -w "$1" ]] &amp;&amp; return 0 || return 1
+}</code>
+    </pre>
+    <div class='btn-group btn-group-xs'>
+      <a target='_blank' href='https://gist.github.com/coderofsalvation/8377555/' class='btn btn-default'>comment</a> 
+    </div>
+    <hr/>
+  
+<h2>Input</h2><hr>
+
+    <h3>getopts.tpl()</h3>
+    <p>
+    getopts-snippet to easily pass commandline option/arguments to you shellscript  
+
+    </p>
+    <pre  data-language='csharp'>                                                                                        
+      <code  data-language='csharp'># snippet for getopts to easily support options and arguments in your shellscript
+# usage: copy/paste it and run ./yourcommand -h foofoo -n barbar one two
+
+# initialize variables
+OPTION1="foo"
+OPTION2="bar"
+OPTIONS=0
+# get rid of appname and (parse) options
+shift 
+while getopts ":h:n:" opt
+do
+    case ${opt} in
+        h) OPTION1=${OPTARG};((OPTIONS+=2));;  
+        n) OPTION2=${OPTARG};((OPTIONS+=2));;    
+    esac
+done
+for((i=0;i&lt;OPTIONS;i++)); do echo "shifting"; shift; done
+# initialize arguments
+ARG1="$1"
+ARG2="$2"
+
+echo "-h=$OPTION1 -n=$OPTION2 ARG1=$ARG1 ARG2=$ARG2"</code>
+    </pre>
+    <div class='btn-group btn-group-xs'>
+      <a target='_blank' href='https://gist.github.com/coderofsalvation/8801742/' class='btn btn-default'>comment</a> 
+    </div>
+    <hr/>
+  
+
+    <h3>promptpassword()</h3>
+    <p>
+    prompts user to type password (discrete)
+
+    </p>
+    <pre  data-language='csharp'>                                                                                        
+      <code  data-language='csharp'># prompts user to enter password 
+
+promptpasswd()
+{   
+    if [ -n "$1" ]; then
+        _getpasswd_var_option=$(printf "%s\\n" "$1" | tr '[:upper:]' '[:lower:]')
+        printf "%s" "Enter your $_getpasswd_var_option password: "
+        stty -echo
+        read ${_getpasswd_var_option}passwd
+        stty echo
+        printf "\\n"
+    else
+        printf "%s" "Enter your password: "
+        stty -echo
+        read passwd
+        stty echo
+        printf "\\n"
+    fi
+}</code>
+    </pre>
+    <div class='btn-group btn-group-xs'>
+      <a target='_blank' href='https://gist.github.com/coderofsalvation/8270449/' class='btn btn-default'>comment</a> 
+    </div>
+    <hr/>
+  
+<h2>Language</h2><hr>
+
+    <h3>runphpcode()</h3>
+    <p>
+    runs phpcode on the commandline,usage: runphpcode "printf('hellow world');"
+
+    </p>
+    <pre  data-language='csharp'>                                                                                        
+      <code  data-language='csharp'># runs phpcode on the commandline
+# usage: runphpcode "printf('hellow world');"
+# @dependency php
+
+function runphpcode(){
+  php -r "$1"
+}</code>
+    </pre>
+    <div class='btn-group btn-group-xs'>
+      <a target='_blank' href='https://gist.github.com/coderofsalvation/8421296/' class='btn btn-default'>comment</a> 
+    </div>
+    <hr/>
+  
+
+    <h3>jsonprettyprint()</h3>
+    <p>
+    formats (pretty print) a json string
+
+    </p>
+    <pre  data-language='csharp'>                                                                                        
+      <code  data-language='csharp'># formats (pretty print) a json string
+# usage: echo '{"b":2, "a":1}' | jsonprettyprint
+
+jsonprettyprint(){
+  echo "$1" | python -mjson.tool
+}</code>
+    </pre>
+    <div class='btn-group btn-group-xs'>
+      <a target='_blank' href='https://gist.github.com/coderofsalvation/8344926/' class='btn btn-default'>comment</a> 
+    </div>
+    <hr/>
+  
+
+    <h3>webserver()</h3>
+    <p>
+    oneliner to turn current directory into web fileserveri
+
+    </p>
+    <pre  data-language='csharp'>                                                                                        
+      <code  data-language='csharp'>
+# oneliner to turn current directory into web fileserver
+# @dependency python2
+
+webserver(){
+  python -m SimpleHTTPServer
+}</code>
+    </pre>
+    <div class='btn-group btn-group-xs'>
+      <a target='_blank' href='https://gist.github.com/coderofsalvation/8421184/' class='btn btn-default'>comment</a> 
+    </div>
+    <hr/>
+  
+<h2>Math</h2><hr>
+
+    <h3>float2integer()</h3>
+    <p>
+    removes decimals from number(strings), usage: echo 1.2 | float2integer   (output: 1)
+
+    </p>
+    <pre  data-language='csharp'>                                                                                        
+      <code  data-language='csharp'># removes decimals from number(strings)
+# usage: echo 1.2 | float2integer   (output: 1)
+# @param integer (piped)
+
+float2integer(){
+  sed 's/\..*//g'
+}</code>
+    </pre>
+    <div class='btn-group btn-group-xs'>
+      <a target='_blank' href='https://gist.github.com/coderofsalvation/8434902/' class='btn btn-default'>comment</a> 
+    </div>
+    <hr/>
+  
+<h2>Multimedia</h2><hr>
+
+    <h3>loopcrossfade()</h3>
+    <p>
+    transforms audio file in seamless loopable audiofile using crossfade-trick (needs sox)
+
+    </p>
+    <pre  data-language='csharp'>                                                                                        
+      <code  data-language='csharp'># makes a audiofile to loop itself (seamless by using a crossfade trick) (needs sox audio utilities)
+# @dependancy sox
+# Usage: ./loopcrossfade &lt;input.wav&gt; &lt;faderatio&gt; [outputdir]
+#
+
+loopcrossfade(){
+  input="$1"; faderatio="$2"; outputdir="$3"; tmpinput="/tmp/$(basename "$input").loopcrossfade.wav"
+  [[ ! -f "$input" ]] &amp;&amp; echo "cannot find $1" &amp;&amp; exit 1
+  valid=$(echo "$faderatio &gt; 1.99" | bc -l );
+  (( $valid == 0 )) &amp;&amp; echo "faderatio should be 2.0 or bigger" &amp;&amp; exit 1
+  [[ -d "$outputdir" ]] &amp;&amp; outputfile="$outputdir/$(basename "$input")_loop.$faderatio.wav" \
+                        || outputfile="$input""_loop.$faderatio.wav"
+  # prepare input
+  format="-c 2 -e signed -b 16 -r 44100"
+  sox "$input" ${format} "$tmpinput" &amp;&amp;
+  samples="$(soxi "$tmpinput" | grep Duration | cut -d' ' -f11 )"
+  fadetime="$( echo "$samples/$faderatio" | bc )"
+  fadetimehalf="$( echo "$fadetime/2" | bc )"
+  middle="$( echo "$samples-$fadetime" | bc )"
+
+  # get middle part + add fadein 
+  sox "$tmpinput" ${format} "$tmpinput.lmid.wav" fade t "$fadetimehalf"s trim 0 "$middle"s
+  # get end (+fadeout)
+  sox "$tmpinput" ${format} "$tmpinput.lend.wav" trim "$middle"s "$fadetime"s
+  sox "$tmpinput.lend.wav" "$tmpinput.lendfadeout.wav" fade t 0 0 "$fadetime"s
+  # combine together
+  sox -m "$tmpinput.lendfadeout.wav" "$tmpinput.lmid.wav" "$outputfile" norm
+  echo "written $outputfile"
+  rm /tmp/*.loopcrossfade.*
+}
+
+loopcrossfade "$1" "$2" "$3"</code>
+    </pre>
+    <div class='btn-group btn-group-xs'>
+      <a target='_blank' href='https://gist.github.com/coderofsalvation/7740333/' class='btn btn-default'>comment</a> 
+    </div>
+    <hr/>
+  
+<h2>Network</h2><hr>
+
+    <h3>apacheprotect()</h3>
+    <p>
+    protects a webdirectory by generating a .htaccess + .htpasswd file
+
+    </p>
+    <pre  data-language='csharp'>                                                                                        
+      <code  data-language='csharp'># protects a webdirectory by generating a .htaccess + .htpasswd file
+# usage: apacherestrict /var/www/mydir "john" "mypassword" || echo "something went wrong"
+# @param string apache (absolute) directory to protect
+# @param string username
+# @param string password
+
+apacherestrict(){
+  dir="$1"; username="$2"; password="$3"
+  [[ -d "$dir" ]] &amp;&amp; cd "$dir" || { echo "directory $dir not found"; return 1; }
+  echo 'AuthUserFile '$1'/.htpasswd
+AuthType Basic
+AuthName "Authorize please:"
+Require valid-user' &gt; .htaccess
+  htpasswd -c -b .htpasswd "$username" "$password"
+  cd - &amp;&gt;/dev/null
+}</code>
+    </pre>
+    <div class='btn-group btn-group-xs'>
+      <a target='_blank' href='https://gist.github.com/coderofsalvation/8529766/' class='btn btn-default'>comment</a> 
+    </div>
+    <hr/>
+  
+
+    <h3>email()</h3>
+    <p>
+    sends email (using sendemail)
+
+    </p>
+    <pre  data-language='csharp'>                                                                                        
+      <code  data-language='csharp'># email function based on sendemail
+# @dependancy: sendemail
+# Usage:
+#  FROM="foo@gmail.com"; TO="bar@foo.com"; TITLE="hi"; MSG="how are you?"
+#  USER="foo"; PASSWD="secret"
+#  [ $(_mail gmail $FROM $TO $TITLE $MESSAGE $USER $PASSWD) -eq 0 ] &amp;&amp; printf "%s\\n" "send" || printf "%s\\n" "error"
+
+
+email()
+{   #send email, return 0 on success, 1 otherwise
+    #requires: libio-socket-ssl-perl, libnet-ssleay-perl and sendemail
+    [ -z "$1" ] &amp;&amp; return 1
+
+    case $1 in
+        gmail)
+            shift
+            sendemail -f "$1" -t "$2" -u "$3" -m "$4" -s smtp.gmail.com:587 -o tls=yes -xu "$5" -xp "$6" &gt; /dev/null 2&gt;&amp;1
+            ;;
+        *)
+            sendemail -f "$1" -t "$2" -u "$3" -m "$4" -s "$5" -xu "$6" -xp "$7" &gt; /dev/null 2&gt;&amp;1
+            ;;
+    esac
+
+    [ $? -eq 0 ] &amp;&amp; return 0 || return 1
+}</code>
+    </pre>
+    <div class='btn-group btn-group-xs'>
+      <a target='_blank' href='https://gist.github.com/coderofsalvation/8270415/' class='btn btn-default'>comment</a> 
+    </div>
+    <hr/>
+  
+
+    <h3>get_url_and_extract_links()</h3>
+    <p>
+    retrieves given urls and extracts links and prints them line by line
+
+    </p>
+    <pre  data-language='csharp'>                                                                                        
+      <code  data-language='csharp'># retrieves given urls and extracts links and prints them line by line
+# usage: curl "2webapp.com/bashlive/" | htmldompath | htmlgreplinks
+# @dependency sed awk curl
+
+/ :/bash/function/string/htmldompath
+/ :/bash/function/string/htmlgreplinks
+
+get_url_and_extract_links(){
+  curl "$1" | htmldompath | htmlgreplinks
+}</code>
+    </pre>
+    <div class='btn-group btn-group-xs'>
+      <a target='_blank' href='https://gist.github.com/coderofsalvation/8406892/' class='btn btn-default'>comment</a> 
+    </div>
+    <hr/>
+  
+
+    <h3>hasinternet()</h3>
+    <p>
+    checks whether bash has access to internet using ping
+
+    </p>
+    <pre  data-language='csharp'>                                                                                        
+      <code  data-language='csharp'>hasinternet()
+{   #check for internet connection, returns 0 on success, 1 otherwise
+    wget --tries=3 --timeout=5 http://www.google.com -O /tmp/index.google &gt; /dev/null 2&gt;&amp;1
+
+    if [ -s /tmp/index.google ]; then
+        rm /tmp/index.google
+        return 0
+    else
+        rm /tmp/index.google
+        return 1
+    fi
+}</code>
+    </pre>
+    <div class='btn-group btn-group-xs'>
+      <a target='_blank' href='https://gist.github.com/coderofsalvation/8270458/' class='btn btn-default'>comment</a> 
+    </div>
+    <hr/>
+  
+
+    <h3>htmlportserver()</h3>
+    <p>
+    listens to port, and serves html file on request
+
+    </p>
+    <pre  data-language='csharp'>                                                                                        
+      <code  data-language='csharp'># listens to port, and serves html file on request
+# @param string htmlfile
+# @param int portnumber
+# @dependancy nc
+# usage: htmlportserver index.html 80
+
+
+htmlportserver(){
+  while true; do { echo -e 'HTTP/1.1 200 OK\r\n'; cat "$1"; } | nc -l $2; done
+}</code>
+    </pre>
+    <div class='btn-group btn-group-xs'>
+      <a target='_blank' href='https://gist.github.com/coderofsalvation/8349838/' class='btn btn-default'>comment</a> 
+    </div>
+    <hr/>
+  
+
+    <h3>listenport()</h3>
+    <p>
+    simple server listening on port using nc (netcat)
+
+    </p>
+    <pre  data-language='csharp'>                                                                                        
+      <code  data-language='csharp'># simple server listening on port
+# for extra (http) functions see: https://github.com/coderofsalvation/bashwapp/blob/master/app
+# usage: POST=8000 listenport
+
+[[ ! -n $PORT ]] &amp;&amp; PORT=8000 # allow port to be passed on commandline
+
+listenport(){
+  TMPFILE="/tmp/.myapp.$(whoami)"; CLIENT="$TMPFILE.fifo.$PORT.$(whoami)"
+  [[ ! -p $CLIENT ]] &amp;&amp; mkfifo $CLIENT 
+  while [[ -p $CLIENT ]]; do cat $CLIENT | nc -v -l $PORT 2&gt;&amp;1 | onRequest; done
+  rm $TMPFILE.*
+}
+
+onRequest(){
+  request="$(cat - )"
+  echo "incoming = $request"
+}</code>
+    </pre>
+    <div class='btn-group btn-group-xs'>
+      <a target='_blank' href='https://gist.github.com/coderofsalvation/8348533/' class='btn btn-default'>comment</a> 
+    </div>
+    <hr/>
+  
+
+    <h3>openbrowser()</h3>
+    <p>
+    desktopindependant way to view url in installed X browser
+
+    </p>
+    <pre  data-language='csharp'>                                                                                        
+      <code  data-language='csharp'># desktopindependant way to view url in installed X browser
+# @param string url
+# usage: viewbrowser &lt;url&gt;
+
+openbrowser(){
+  which xdg-open &amp;&gt;/dev/null &amp;&amp; xdg-open "$1" || echo "could not open browser"
+}</code>
+    </pre>
+    <div class='btn-group btn-group-xs'>
+      <a target='_blank' href='https://gist.github.com/coderofsalvation/8348496/' class='btn btn-default'>comment</a> 
+    </div>
+    <hr/>
+  
+<h2>Process</h2><hr>
+
+    <h3>animrotate()</h3>
+    <p>
+    shows fancy rotating anim while process is not finished
+
+    </p>
+    <pre  data-language='csharp'>                                                                                        
+      <code  data-language='csharp'># Usage: 
+#   printf "%s" "[+] tar" &amp;&amp; _animrotate $(pidof tar)
+#
+
+
+animrotate()
+{   #shows an animation as long as a process is in memory
+    [ -z "$1" ] &amp;&amp; return 1
+    printf "%s\\n" "$1" | grep -v "[^0-9]" &gt;/dev/null || { printf "%5s\n" ""; return 1; }
+    _animrotate_var_pid=$1
+    _animrotate_var_animation_state=1
+
+    if [ ! "$(ps -p $_animrotate_var_pid -o comm=)" ]; then
+        printf "%5s\n" ""
+        return 1
+    fi
+
+    printf "%s" "    "
+
+    while [ "$(ps -p $_animrotate_var_pid -o comm=)" ]; do
+        # rotating star
+        printf "%b" "\b\b\b"
+        case $_animrotate_var_animation_state in
+            1)
+                printf "%s" "["
+                printf "%b" "\033[1m|\033[0m"
+                printf "%s" "]"
+                _animrotate_var_animation_state=2
+                ;;
+            2)
+                printf "%s" "["
+                printf "%b" "\033[1m/\033[0m"
+                printf "%s" "]"
+                _animrotate_var_animation_state=3
+                ;;
+            3)
+                printf "%s" "["
+                printf "%b" "\033[1m-\033[0m"
+                printf "%s" "]"
+                _animrotate_var_animation_state=4
+                ;;
+            4)
+                printf "%s" "["
+                printf "%b" "\033[1m"
+                printf "%s" "\\"
+                printf "%b" "\033[0m"
+                printf "%s" "]"
+                _animrotate_var_animation_state=1
+                ;;
+        esac
+        sleep 1
+    done
+    printf "%b" "\b\b\b\b\b\b\b       "
+}</code>
+    </pre>
+    <div class='btn-group btn-group-xs'>
+      <a target='_blank' href='https://gist.github.com/coderofsalvation/8270372/' class='btn btn-default'>comment</a> 
+    </div>
+    <hr/>
+  
+
+    <h3>animwiggle()</h3>
+    <p>
+    shows fancy wiggling animation while process is not finished
+
+    </p>
+    <pre  data-language='csharp'>                                                                                        
+      <code  data-language='csharp'># tar zxf big_file.tar.gz &gt; /dev/null 2&gt;&amp;1 &amp;
+# printf "%s" "[+] tar is running ..." &amp;&amp; _animcui $(pidof tar)
+
+showanim()
+{
+    [ -z "$1" ] &amp;&amp; { printf "%5s\n" ""; return 1; }
+    printf "%s\\n" "$1" | grep -v "[^0-9]" &gt;/dev/null || { printf "%5s\n" ""; return 1; }
+    _animcui_var_pid="$1"
+    _animcui_var_animation_state=1
+
+    if [ ! "$(ps -p $_animcui_var_pid -o comm=)" ]; then
+        printf "%5s\n" ""
+        return 1
+    fi
+
+    printf "%s" "      "
+
+    while [ "$(ps -p $_animcui_var_pid -o comm=)" ]; do
+        printf "%b" "\b\b\b\b\b"
+        case $_animcui_var_animation_state in
+            1)
+                printf "%s" '\o@o\'
+                _animcui_var_animation_state=2
+                ;;
+            2)
+                printf "%s" '|o@o|'
+                _animcui_var_animation_state=3
+                ;;
+            3)
+                printf "%s" '/o@o/'
+                _animcui_var_animation_state=4
+                ;;
+            4)
+                printf "%s" '|o@o|'
+                _animcui_var_animation_state=1
+                ;;
+        esac
+        sleep 1
+    done
+    printf "%b" "\b\b\b\b\b" &amp;&amp; printf "%5s\n" ""
+}</code>
+    </pre>
+    <div class='btn-group btn-group-xs'>
+      <a target='_blank' href='https://gist.github.com/coderofsalvation/8270356/' class='btn btn-default'>comment</a> 
+    </div>
+    <hr/>
+  
+
+    <h3>cmdsudo()</h3>
+    <p>
+    print && execute a command, returns 1 if command fails
+
+    </p>
+    <pre  data-language='csharp'>                                                                                        
+      <code  data-language='csharp'># print &amp;&amp; execute a command, returns 1 if command fails
+
+cmdsudo()
+{   
+    [ -z "$1" ] &amp;&amp; return 1
+    _cmdsudo_var_serr=$$
+
+    printf "%s " "    $ $@"
+    printf "\\n"
+    printf "%s\\n" "$sudopwd" | $sudocmd "$@" &gt; /tmp/"$_cmdsudo_var_serr".out 2&gt;&amp;1
+
+    _cmdsudo_var_status=$?
+    [ X"$_cmdsudo_var_status" != X"0" ] &amp;&amp; { cat /tmp/"$_cmdsudo_var_serr".out; \
+        rm -rf /tmp/"$_cmdsudo_var_serr".out; return $_cmdsudo_var_status; } \
+        || { rm -rf /tmp/"$_cmdsudo_var_serr".out; return $_cmdsudo_var_status; }
+}</code>
+    </pre>
+    <div class='btn-group btn-group-xs'>
+      <a target='_blank' href='https://gist.github.com/coderofsalvation/8324643/' class='btn btn-default'>comment</a> 
+    </div>
+    <hr/>
+  
+
+    <h3>findandkill()</h3>
+    <p>
+    find and kill by brett terpstra (interactive, preventing repetitive ps aux + kill -9 )
+
+    </p>
+    <pre  data-language='csharp'>                                                                                        
+      <code  data-language='csharp'># find and kill by brett terpstra (saving repetitive ps aux + kill -9 )
+fp () { #find and list processes matching a case-insensitive partial-match string
+		ps Ao pid,comm|awk '{match($0,/[^\/]+$/); print substr($0,RSTART,RLENGTH)": "$1}'|grep -i $1|grep -v grep
+}
+
+fk () { # build menu to kill process
+    IFS=$'\n'
+    PS3='Kill which process? '
+    select OPT in $(fp $1) "Cancel"; do
+        if [ $OPT != "Cancel" ]; then
+            kill $(echo $OPT|awk '{print $NF}')
+        fi
+        break
+    done
+    unset IFS
+}</code>
+    </pre>
+    <div class='btn-group btn-group-xs'>
+      <a target='_blank' href='https://gist.github.com/coderofsalvation/8350368/' class='btn btn-default'>comment</a> 
+    </div>
+    <hr/>
+  
+
+    <h3>limit()</h3>
+    <p>
+    limits shellscript to X simultanious processes 
+
+    </p>
+    <pre  data-language='csharp'>                                                                                        
+      <code  data-language='csharp'># Starts bash cmds but limits to maximum of N running instances (handy for cronjobs)
+# usage: ./limitprocess &lt;max parallel processes&gt; ..yourcommands..
+# @dependancies: ps grep wc
+# @param int maximum number of parallel processes
+  
+function limitprocess(){
+  MAXINSTANCES="$1"; shift;
+  processes=$(ps aux | grep "$*" | grep -v grep | wc -l )
+  ((processes &lt; MAXINSTANCES)) &amp;&amp; "$@" || echo "already $MAXINSTANCES processes running"
+}</code>
+    </pre>
+    <div class='btn-group btn-group-xs'>
+      <a target='_blank' href='https://gist.github.com/coderofsalvation/8318643/' class='btn btn-default'>comment</a> 
+    </div>
+    <hr/>
+  
+
+    <h3>single()</h3>
+    <p>
+    limits script to one process (singleton)
+
+    </p>
+    <pre  data-language='csharp'>                                                                                        
+      <code  data-language='csharp'># forces/limits shellscript to only one 1 process, to prevent running twice, aka bash singleton
+# this function exits when no parameter is passed, and another instance of the script is detected
+# @dependancies ps grep tr sed
+# @param string (pass --kill to kill previous process)
+# usage: change 'foo' and 'bar' to the strings which occur in your process name
+
+function singleprocess(){
+  PID=$$;                            # current process
+  if [[ "$1" == "--kill" ]]; then 
+    PID="$(ps aux | grep foo | grep bar | tr -s [:space:] | cut -d' ' -f2 )"
+    [[ $? == 0 ]] &amp;&amp; [[ ${#PID} != 0 ]] &amp;&amp; echo "killing previous pid $PID" &amp;&amp; kill -9 $PID 
+  else
+    ps aux | grep "$(basename $0)" | grep -v grep | grep -v $PID &amp;&gt;/dev/null &amp;&amp; exit 0; # dont run twice
+  fi
+}</code>
+    </pre>
+    <div class='btn-group btn-group-xs'>
+      <a target='_blank' href='https://gist.github.com/coderofsalvation/8258606/' class='btn btn-default'>comment</a> 
+    </div>
+    <hr/>
+  
+<h2>String</h2><hr>
+
+    <h3>alphanumeric()</h3>
+    <p>
+    checks if string contains only alphanumeric chars
+
+    </p>
+    <pre  data-language='csharp'>                                                                                        
+      <code  data-language='csharp'># check for alphanum strings, return 0 if all upper+lower+digits, 1 otherwise 
+# @param string
+isAlphanumeric()
+{ 
+  # Remove all unacceptable chars
+  [ -z "$1" ] &amp;&amp; return 1
+  _isalphanum_var_compressed="$(printf "%s" "$1" | sed -e 's/[^[:alnum:]]//g')"
+
+  [ X"$_isalphanum_var_compressed" = X"$1" ] &amp;&amp; return 0 || return 1
+}</code>
+    </pre>
+    <div class='btn-group btn-group-xs'>
+      <a target='_blank' href='https://gist.github.com/coderofsalvation/8270476/' class='btn btn-default'>comment</a> 
+    </div>
+    <hr/>
+  
+
+    <h3>base64()</h3>
+    <p>
+    base64 encoding/decoding of strings
+
+    </p>
+    <pre  data-language='csharp'>                                                                                        
+      <code  data-language='csharp'>encode64()
+{
+    [ -z "$1" ] &amp;&amp; return 1
+    printf "%s\\n" "$1" | openssl enc -base64
+}
+
+decode64()
+{
+    [ -z "$1" ] &amp;&amp; return 1
+    printf "%s\\n" "$1" | openssl enc -base64 -d
+}</code>
+    </pre>
+    <div class='btn-group btn-group-xs'>
+      <a target='_blank' href='https://gist.github.com/coderofsalvation/7456d8554eb46a6acd1c/' class='btn btn-default'>comment</a> 
+    </div>
+    <hr/>
+  
+
+    <h3>color()</h3>
+    <p>
+    terminal color escape codes for fancy colourfull output
+
+    </p>
+    <pre  data-language='csharp'>                                                                                        
+      <code  data-language='csharp'># bash colors snippet (Usage: printf "$C_GREEN this is green $C_NORMAL this is normal")
+C_NORMAL="\\033[0;0m"
+C_BOLD="\E[1;37;40m"
+C_BRIGHT="\E[1;33;40m"
+C_BLACK="\\033[0;30m"
+C_RED="\\033[0;31m"
+C_GREEN="\\033[0;32m"
+C_BROWN="\\033[0;33m"
+C_BLUE="\\033[0;34m"
+C_PURPLE="\\033[0;35m"
+C_CYAN="\\033[0;36m"
+C_LIGHT_GREY="\\033[0;37m"
+C_DARK_GREY="\\033[1;30m"
+C_LIGHT_RED="\\033[1;31m"
+C_LIGHT_GREEN="\\033[1;32m"
+C_YELLOW="\\033[1;33m"
+C_LIGHT_BLUE="\\033[1;34m"
+C_LIGHT_PURPLE="\\033[1;35m"
+C_LIGHT_CYAN="\\033[1;36m"
+C_WHITE="\\033[1;37m"
+C_DEFAULT="\\033[0m"</code>
+    </pre>
+    <div class='btn-group btn-group-xs'>
+      <a target='_blank' href='https://gist.github.com/coderofsalvation/7692392/' class='btn btn-default'>comment</a> 
+    </div>
+    <hr/>
+  
+
+    <h3>explode()</h3>
+    <p>
+    explodes string to array based on given delimiter
+
+    </p>
+    <pre  data-language='csharp'>                                                                                        
+      <code  data-language='csharp'># explodes string to array based on given delimiter
+# @param string delimitor
+# @param string varname
+# @param string input
+# usage: explode "," myarray "foo,bar"
+#        echo ${myarray[@]}
+
+explode(){
+  IFS="$1" read -a $2 &lt;&lt;&lt; "$3"
+}</code>
+    </pre>
+    <div class='btn-group btn-group-xs'>
+      <a target='_blank' href='https://gist.github.com/coderofsalvation/8357468/' class='btn btn-default'>comment</a> 
+    </div>
+    <hr/>
+  
+
+    <h3>getline()</h3>
+    <p>
+    gets the nth line ( e.g. cat file.txt | getline 4 )
+
+    </p>
+    <pre  data-language='csharp'>                                                                                        
+      <code  data-language='csharp'># gets the nth line ( e.g. cat file.txt | getline 4 )
+# @param int linenumber
+
+getline(){
+  cat - | sed -n "$1p"
+}</code>
+    </pre>
+    <div class='btn-group btn-group-xs'>
+      <a target='_blank' href='https://gist.github.com/coderofsalvation/8325973/' class='btn btn-default'>comment</a> 
+    </div>
+    <hr/>
+  
+
+    <h3>highlight()</h3>
+    <p>
+    highlights keywords in bashcode string (usage: echo "foo bar" | highlight "foo")
+
+    </p>
+    <pre  data-language='csharp'>                                                                                        
+      <code  data-language='csharp'># highlights keywords in bashcode script
+# usage: echo "foo normal bar" | highlight "foo|bar"
+
+highlight(){
+  cat - | grep -E --color "$1"
+}</code>
+    </pre>
+    <div class='btn-group btn-group-xs'>
+      <a target='_blank' href='https://gist.github.com/coderofsalvation/8351389/' class='btn btn-default'>comment</a> 
+    </div>
+    <hr/>
+  
+
+    <h3>htmldompath()</h3>
+    <p>
+    adds htmldompaths to htmlcontent for easier line-by-line parsing ( fingers crossed! :D ) 
+
+    </p>
+    <pre  data-language='csharp'>                                                                                        
+      <code  data-language='csharp'># adds htmldompaths to htmlcontent ( fingers crossed! :D ) 
+# @param htmlstring (pipe)
+# usage: curl "http://foo.com/bar.html" | htmldompath
+# output: body:                                   &lt;body&gt;
+#         body&gt;a:                                 &lt;a href="#foo"&gt;
+#         body&gt;a&gt;h1:                              &lt;h1&gt;Some title&lt;/h1&gt;
+
+htmldompath(){
+  allowedtags="$1"; TMPFILE="/tmp/.htmldompath.$(whoami)"; path=();
+  # strip enters, put each tag on a line, remove whitespaces, and store into file
+  cat - | sed ':a;N;$!ba;s/\n/ /g' | sed 's/&lt;/\n&amp;/g;s/  / /g' | sed '/^\s*$/d' &gt; $TMPFILE;
+  while read line; do
+    [[ "$line" =~ "&lt;body"  ]] &amp;&amp; bodyfound=1
+    [[ "$line" =~ "&lt;/body" ]] &amp;&amp; break;                      # we are done
+    [[ ! -n $bodyfound     ]] &amp;&amp; continue;                   # only care for data after &lt;body&gt;-tag
+    tag="${line/&lt;/}"; tag="${tag/&gt;*/}"; tag="${tag// */}"; tag="$(echo "$tag" | tr '[:upper:]' '[:lower:]' )"
+    [[ "${tag:0:1}" == '!'  ]] &amp;&amp; continue                   # skip nondom tags
+    [[ "${tag:0:2}" == 'br' ]] &amp;&amp; continue                   # skip noninteresting tags
+    lasttag=${path[${#path[@]} - 1]}
+    if [[ "${tag:0:1}" == '/' ]]; then 
+      [[ "${tag/*\//}" == "$lasttag" ]] &amp;&amp; unset path[${#path[@]}-1] # &amp;&amp; echo "-pathsize=${#path[@]}"
+    else 
+      [[ ! "$line" =~ "/$tag" ]] &amp;&amp; [[ ! "$line" =~ '/&gt;' ]] &amp;&amp; path+=("${tag/\//}") # &amp;&amp; echo "+pathsize=${#path[@]}"
+    fi
+    pathstring="${path[*]}"; pathstring="${pathstring// /&gt;}"; printf "%-40s %s\n" "$pathstring:" "$line"
+  done &lt; $TMPFILE
+  rm $TMPFILE
+}</code>
+    </pre>
+    <div class='btn-group btn-group-xs'>
+      <a target='_blank' href='https://gist.github.com/coderofsalvation/8390901/' class='btn btn-default'>comment</a> 
+    </div>
+    <hr/>
+  
+
+    <h3>htmlentities()</h3>
+    <p>
+    converts special htmlcharacters into htmlentities
+
+    </p>
+    <pre  data-language='csharp'>                                                                                        
+      <code  data-language='csharp'># converts special htmlcharacters into htmlentities
+# usage: cat file.txt | htmlentities
+
+htmlentities(){
+  cat - | sed -e 's/&amp;/\&amp;amp;/g'	\
+      -e 's/&lt;/\&amp;lt;/g'	\
+      -e 's/&gt;/\&amp;gt;/g'	\
+      -e 's/&auml;/\&amp;auml;/g'	\
+      -e 's/&ouml;/\&amp;ouml;/g'	\
+      -e 's/&uuml;/\&amp;uuml;/g'	\
+      -e 's/&szlig;/\&amp;szlig;/g'	\
+      -e 's/&Auml;/\&amp;Auml;/g'	\
+      -e 's/&Ouml;/\&amp;Ouml;/g'	\
+      -e 's/&Uuml;/\&amp;Uuml;/g'	\
+}</code>
+    </pre>
+    <div class='btn-group btn-group-xs'>
+      <a target='_blank' href='https://gist.github.com/coderofsalvation/8379355/' class='btn btn-default'>comment</a> 
+    </div>
+    <hr/>
+  
+
+    <h3>htmlgreplinks()</h3>
+    <p>
+    tries to extract links from htmlcontent (hint: use with htmldompath)
+
+    </p>
+    <pre  data-language='csharp'>                                                                                        
+      <code  data-language='csharp'># tries to extract links from htmlcontent (hint: use with htmldompath)
+# @param htmlinput (piped)
+# usage: curl "http://foo.com" | htmlgreplinks | sort | uniq
+
+htmlgreplinks(){
+  cat - | grep -E "(href|src|action)=[\"']*[\"']" | \
+  sed "s/.*href=['\"]//g"   | \
+  sed "s/.*action=['\"]//g" | \
+  sed "s/.*href=['\"]//g"   | \
+  sed "s/['\"].*//g"        | while read line; do [[ ! "$line" == "#" ]] &amp;&amp; echo "$line"; done
+}</code>
+    </pre>
+    <div class='btn-group btn-group-xs'>
+      <a target='_blank' href='https://gist.github.com/coderofsalvation/8391480/' class='btn btn-default'>comment</a> 
+    </div>
+    <hr/>
+  
+
+    <h3>implode()</h3>
+    <p>
+    collapses arguments / list to single string
+
+    </p>
+    <pre  data-language='csharp'>                                                                                        
+      <code  data-language='csharp'># collapses arguments / list to single string
+# @param array/arguments
+# usage: implode ${myarray[@]}
+#        implode one two three
+
+function implode(){
+  echo "$*"
+}</code>
+    </pre>
+    <div class='btn-group btn-group-xs'>
+      <a target='_blank' href='https://gist.github.com/coderofsalvation/8357371/' class='btn btn-default'>comment</a> 
+    </div>
+    <hr/>
+  
+
+    <h3>multigrep()</h3>
+    <p>
+    greps on keywords (keyword1 AND keyword2 AND ..)
+
+    </p>
+    <pre  data-language='csharp'>                                                                                        
+      <code  data-language='csharp'># greps on keywords (keyword1 AND keyword2 AND ..)
+# @param string keyword
+# usage: printf "foo bar\nbar foo\n" | multimatch foo bar
+
+multigrep() { 
+  awk 'BEGIN{for(i=1;i&lt;ARGC;i++) a[i]=ARGV[i]; ARGC=1} {for (i in a) if ($0 !~ a[i]) next; print}' "$@"
+}</code>
+    </pre>
+    <div class='btn-group btn-group-xs'>
+      <a target='_blank' href='https://gist.github.com/coderofsalvation/8376782/' class='btn btn-default'>comment</a> 
+    </div>
+    <hr/>
+  
+
+    <h3>removedoublespaces()</h3>
+    <p>
+    removes double spaces (handy when using 'cut')
+
+    </p>
+    <pre  data-language='csharp'>                                                                                        
+      <code  data-language='csharp'># removes double spaces (handy when using 'cut')
+# usage: echo " 1  foo    bar" | removedoublespaces     (outputs: " 1 foo bar")
+
+removedoublespaces(){
+  cat - | tr -s " "
+}</code>
+    </pre>
+    <div class='btn-group btn-group-xs'>
+      <a target='_blank' href='https://gist.github.com/coderofsalvation/8356352/' class='btn btn-default'>comment</a> 
+    </div>
+    <hr/>
+  
+
+    <h3>replacenewlines()</h3>
+    <p>
+    replaces newlines (enters) in string with given parameter
+
+    </p>
+    <pre  data-language='csharp'>                                                                                        
+      <code  data-language='csharp'># replaces newlines (enters) in string with given parameter
+# usage: cat file.txt | replacenewlines ","
+
+replacenewlines(){
+  cat - | sed ':a;N;$!ba;s/\n/"$1"/g'
+}</code>
+    </pre>
+    <div class='btn-group btn-group-xs'>
+      <a target='_blank' href='https://gist.github.com/coderofsalvation/8333389/' class='btn btn-default'>comment</a> 
+    </div>
+    <hr/>
+  
+
+    <h3>runascmd()</h3>
+    <p>
+    expands string with spaces to command with arguments (and runs it)
+
+    </p>
+    <pre  data-language='csharp'>                                                                                        
+      <code  data-language='csharp'># expands string with spaces to command with arguments (and runs it)
+# @param string command
+# usage: stringtocmd "ls -la /tmp"
+
+function runascommand(){
+  ${1}
+}</code>
+    </pre>
+    <div class='btn-group btn-group-xs'>
+      <a target='_blank' href='https://gist.github.com/coderofsalvation/8338581/' class='btn btn-default'>comment</a> 
+    </div>
+    <hr/>
+  
+
+    <h3>strlen()</h3>
+    <p>
+    returns the length of a string
+
+    </p>
+    <pre  data-language='csharp'>                                                                                        
+      <code  data-language='csharp'># returns length of a string
+# @param string input
+# usage: strlen "foo" (output: 3)
+#        length="$( strlen "foo" )"; echo "$length"  (output: 3)
+
+strlen(){
+  echo "${#1}"
+}</code>
+    </pre>
+    <div class='btn-group btn-group-xs'>
+      <a target='_blank' href='https://gist.github.com/coderofsalvation/8338500/' class='btn btn-default'>comment</a> 
+    </div>
+    <hr/>
+  
+
+    <h3>substr()</h3>
+    <p>
+    returns part of string
+
+    </p>
+    <pre  data-language='csharp'>                                                                                        
+      <code  data-language='csharp'># returns part of string
+# @param string input
+# @param string startoffset
+# @param string number of characters
+#
+# usage: substr foobar 0 3     (outputs 'foo')
+#        short="$( substr "foobar" 0 3 )"; echo "$short"
+
+function substr(){
+  echo "${1:$2:$3}"
+}</code>
+    </pre>
+    <div class='btn-group btn-group-xs'>
+      <a target='_blank' href='https://gist.github.com/coderofsalvation/8338454/' class='btn btn-default'>comment</a> 
+    </div>
+    <hr/>
+  
+
+    <h3>supercut()</h3>
+    <p>
+    the 'chucknorris'-cut, removes double delimiters and such. When 'cut' fails: use supercut!
+
+    </p>
+    <pre  data-language='csharp'>                                                                                        
+      <code  data-language='csharp'># the 'chucknorris'-cut, removes double delimiters and such. When 'cut' fails: use supercut!
+# @param string columnnumber
+# @param string delimiter [optional, default: space]
+# usage: ls -la | supercut 4
+
+supercut(){
+  [[ ! -n $2 ]] &amp;&amp; delimiter=' ' || delimiter=${2:0:1}; cat - | tr -s "$delimiter" | cut -d"$delimiter" -f $1
+}</code>
+    </pre>
+    <div class='btn-group btn-group-xs'>
+      <a target='_blank' href='https://gist.github.com/coderofsalvation/8357289/' class='btn btn-default'>comment</a> 
+    </div>
+    <hr/>
+  
+
+    <h3>trim()</h3>
+    <p>
+    remove leading and trailing whitespaces
+
+    </p>
+    <pre  data-language='csharp'>                                                                                        
+      <code  data-language='csharp'># remove leading and trailing whitespaces
+# usage: echo " foo bar " | trim 
+
+trim(){
+  cat - | sed -e 's/^ *//g' -e 's/ *$//g'
+}</code>
+    </pre>
+    <div class='btn-group btn-group-xs'>
+      <a target='_blank' href='https://gist.github.com/coderofsalvation/8328455/' class='btn btn-default'>comment</a> 
+    </div>
+    <hr/>
+  
+
+    <h3>ucfirst()</h3>
+    <p>
+    print first character in capital
+
+    </p>
+    <pre  data-language='csharp'>                                                                                        
+      <code  data-language='csharp'># print first character in capital
+# usage: echo "hello" | ucfirst      &lt;-- outputs 'Hello'
+#
+#        str="hello"
+#        str="${str^}"               &lt;-- shortcut function
+
+ucfirst(){
+  cat - | echo "${1^}"
+}</code>
+    </pre>
+    <div class='btn-group btn-group-xs'>
+      <a target='_blank' href='https://gist.github.com/coderofsalvation/8919386/' class='btn btn-default'>comment</a> 
+    </div>
+    <hr/>
+  
+
+    <h3>urldecode()</h3>
+    <p>
+    decodes an urlencoded string (%20 to ' ' e.g.)
+
+    </p>
+    <pre  data-language='csharp'>                                                                                        
+      <code  data-language='csharp'># decodes an urlencoded string (%20 to ' ' e.g.)
+# @param string input
+# usage: echo "http://foo.com/foo.php$(urldecode "?foo=bar bar")"
+
+urldecode(){
+  data="$(cat - | sed 's/+/ /g')"
+  printf '%b' "${data//%/\x}"
+} </code>
+    </pre>
+    <div class='btn-group btn-group-xs'>
+      <a target='_blank' href='https://gist.github.com/coderofsalvation/8349984/' class='btn btn-default'>comment</a> 
+    </div>
+    <hr/>
+  
+
+    <h3>wraplines()</h3>
+    <p>
+    prints lines which do not exceed the terminal width
+
+    </p>
+    <pre  data-language='csharp'>                                                                                        
+      <code  data-language='csharp'># prints lines which do not exceed the terminal width
+# usage: cat somefile.txt | wraplines
+
+function wraplines(){
+  cat - | cut -c 1-$(tput cols)
+}</code>
+    </pre>
+    <div class='btn-group btn-group-xs'>
+      <a target='_blank' href='https://gist.github.com/coderofsalvation/8326356/' class='btn btn-default'>comment</a> 
+    </div>
+    <hr/>
+  
+<h2>System</h2><hr>
+
+    <h3>getarch()</h3>
+    <p>
+    check for system arch, returns (64 or 32)
+
+    </p>
+    <pre  data-language='csharp'>                                                                                        
+      <code  data-language='csharp'># check for system arch, returns [64|32]
+
+function getarch()
+{   
+    [ -z "$MACHTYPE" ] &amp;&amp; _arch_var_arch=$(uname -m) || _arch_var_arch=$(printf "%s\\n" "$MACHTYPE" | cut -d- -f1)
+
+    case $_arch_var_arch in
+        x86_64)
+            _arch_var_arch=64;
+            ;;
+        i686)
+            _arch_var_arch=32;
+            ;;
+        *)
+            return 1
+            ;;
+    esac
+
+    printf "%s\\n" "$_arch_var_arch"
+}</code>
+    </pre>
+    <div class='btn-group btn-group-xs'>
+      <a target='_blank' href='https://gist.github.com/coderofsalvation/8324651/' class='btn btn-default'>comment</a> 
+    </div>
+    <hr/>
+  
+
+    <h3>getdistro()</h3>
+    <p>
+    return distro name in a lower string
+
+    </p>
+    <pre  data-language='csharp'>                                                                                        
+      <code  data-language='csharp'># return distro name in a lower string
+
+function getdistro()
+{   
+    _distro_var_DIST_INFO="/etc/lsb-release"
+    if [ -r "$_distro_var_DIST_INFO" ]; then
+        . "$_distro_var_DIST_INFO"
+    fi
+
+    if [ -z "$DISTRIB_ID" ]; then
+        _distro_var_DISTRIB_ID="Unknown";
+        if [ -f /etc/arch-release ]; then
+            _distro_var_DISTRIB_ID="Arch"
+        elif [ -r /etc/knoppix-version ]; then
+            _distro_var_DISTRIB_ID="Knoppix"
+        elif [ -r /etc/sidux-version ]; then
+            _distro_var_DISTRIB_ID="Sidux"
+        elif [ -r /etc/debian_version ]; then
+            _distro_var_DISTRIB_ID="Debian"
+        elif [ -r /etc/issue ]; then
+            _distro_var_DISTRIB_ID=$(cat /etc/issue.net | awk '{print $1}')
+            if [ X"$_distro_var_DISTRIB_ID" = X"Ubuntu" ]; then
+                _distro_var_DISTRIB_ID=Ubuntu
+            fi
+        elif [ -r /etc/gentoo-release ]; then
+            _distro_var_DISTRIB_ID="Gentoo"
+        elif [ -f /etc/lfs-version ]; then
+            _distro_var_DISTRIB_ID="LFS"
+        elif [ -r /etc/pclinuxos-release ]; then
+            _distro_var_DISTRIB_ID="PCLinuxOS"
+        elif [ -f /etc/mandriva-release ] || [ -f /etc/mandrake-release ]; then
+            _distro_var_DISTRIB_ID="Mandriva"
+        elif [ -f /etc/redhat-release ]; then
+            _distro_var_DISTRIB_ID="RedHat"
+        elif [ -f /etc/fedora-release ]; then
+            _distro_var_DISTRIB_ID="Fedora"
+        elif [ -r /etc/vector-version ]; then
+            _distro_var_DISTRIB_ID="VectorLinux"
+        elif [ -r /etc/slackware-version ]; then
+            _distro_var_DISTRIB_ID="$(cat /etc/slackware-version)"
+        elif [ -f /etc/release ]; then
+            _distro_var_DISTRIB_ID="Solaris"
+        elif [ -r /etc/SuSE-release ]; then
+            _distro_var_DISTRIB_ID="$(grep -i suse /etc/SuSE-release)"
+        elif [ -f /etc/yellowdog-release ]; then
+            _distro_var_DISTRIB_ID="YellowDog Linux"
+        elif [ -f /etc/zenwalk-version  ]; then
+            _distro_var_DISTRIB_ID="Zenwalk"
+        fi
+        printf "%s\\n" "$_distro_var_DISTRIB_ID" | tr 'ABCDEFGHIJKLMNOPQRSTUVWXYZ' 'abcdefghijklmnopqrstuvwxyz'
+    else
+        printf "%s\\n" "$DISTRIB_ID" | tr 'ABCDEFGHIJKLMNOPQRSTUVWXYZ' 'abcdefghijklmnopqrstuvwxyz'
+    fi
+}</code>
+    </pre>
+    <div class='btn-group btn-group-xs'>
+      <a target='_blank' href='https://gist.github.com/coderofsalvation/8324609/' class='btn btn-default'>comment</a> 
+    </div>
+    <hr/>
+  
+
+    <h3>islivecd()</h3>
+    <p>
+    detect a livecd system, return 0 on success, 1 otherwise
+
+    </p>
+    <pre  data-language='csharp'>                                                                                        
+      <code  data-language='csharp'># detect a livecd system, return 0 on success, 1 otherwise
+
+
+function islivecd()
+    grep boot=live /proc/cmdline &gt;/dev/null &amp;&amp; return 0
+    grep boot=casper /proc/cmdline &gt;/dev/null &amp;&amp; return 0
+    return 1
+}</code>
+    </pre>
+    <div class='btn-group btn-group-xs'>
+      <a target='_blank' href='https://gist.github.com/coderofsalvation/8324582/' class='btn btn-default'>comment</a> 
+    </div>
+    <hr/>
+  
+
+    <h3>ismonitorattached()</h3>
+    <p>
+    returns 0 if monitor is attached
+
+    </p>
+    <pre  data-language='csharp'>                                                                                        
+      <code  data-language='csharp'># returns 0 if monitor is attached
+
+function ismonitorattached()
+{
+    xrandr | grep "^VGA" | grep " connected" &gt;/dev/null &amp;&amp; return 0
+    xrandr | grep "^HDMI" | grep " connected" &gt;/dev/null &amp;&amp; return 0
+    return 1
+}</code>
+    </pre>
+    <div class='btn-group btn-group-xs'>
+      <a target='_blank' href='https://gist.github.com/coderofsalvation/8324578/' class='btn btn-default'>comment</a> 
+    </div>
+    <hr/>
+  
+
+    <h3>launch()</h3>
+    <p>
+    attempt for universal way of opening a filetype with default application (regardless of windowmanager
+
+    </p>
+    <pre  data-language='csharp'>                                                                                        
+      <code  data-language='csharp'>#!/bin/bash
+# attempt for universal way of opening a filetype with default application (regardless of windowmanager)
+# usage: open my.pdf   (HINT: put this in your .bashrc: alias o='launch' )
+# @param string (arguments)
+
+function launch(){
+  if   which xdg-open   &amp;&gt;/dev/null;
+    then xdg-open "$@"
+  elif which gnome-open &amp;&gt;/dev/null;
+    then gnome-open "$@";
+  elif which kde-open   &amp;&gt;/dev/null;
+    then kde-open "$@";
+  elif which open       &amp;&gt;/dev/null; 
+    then open "$@"
+  fi
+} </code>
+    </pre>
+    <div class='btn-group btn-group-xs'>
+      <a target='_blank' href='https://gist.github.com/coderofsalvation/8664647/' class='btn btn-default'>comment</a> 
+    </div>
+    <hr/>
+  
+<h2>Template</h2><hr>
+
+    <h3>bashdown()</h3>
+    <p>
+    bash as templating language (like smarty e.g.)
+
+    </p>
+    <pre  data-language='csharp'>                                                                                        
+      <code  data-language='csharp'># smarty like template engine which executes inline bash in (bashdown) strings (replaces variables with values e.g.)
+# @link http://github.com/coderofsalvation/bashdown
+# @dependancies: sed cat
+# @example: echo 'hi $NAME it is $(date)' &gt; /tmp/mytemplate.bashdown
+# @example: cat /tmp/mytemplate.bashdown | fetch 
+
+# fetches a document and interprets bashsyntax in string (bashdown) templates 
+# @param string - string with bash(down) syntax (usually surrounded by ' quotes instead of ")
+fetch(){
+  IFS=''; cat - | while read line; do 
+    for k in "${!args[@]}"; do [[ "$k" == "0" ]] &amp;&amp; continue;
+      value="$( echo "${args["$k"]}" | sed -e 's/[\/&amp;]/\\&amp;/g' | sed "s/'/\"/g" )"; eval "$k="$value";"
+    done; 
+    line="$(eval "echo \"$( echo "$line" | sed 's/"/\\"/g')\"")"; echo "$line" # process bash in snippet
+  done
+}</code>
+    </pre>
+    <div class='btn-group btn-group-xs'>
+      <a target='_blank' href='https://gist.github.com/coderofsalvation/8280734/' class='btn btn-default'>comment</a> 
+    </div>
+    <hr/>
+  

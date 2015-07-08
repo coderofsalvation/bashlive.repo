@@ -1,0 +1,301 @@
+<!doctype html>
+<html lang="en"><head>
+    <meta charset="utf-8">
+    <title>bashlive features, bake bash scripts, use snippets from the cloud at your fingertips</title>
+    <!-- Mobile viewport optimized -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <!-- Mobile Internet Explorer allows us to activate ClearType technology for smoothing fonts for easy reading -->
+    <meta http-equiv="cleartype" content="on">
+
+    <!-- Le styles -->
+    <link href="css/bootswatch/Cosmo/bootstrap.min.css" rel="stylesheet">
+    <link href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.21/themes/black-tie/jquery-ui.css" rel="stylesheet">
+    <link href="css/jquery.tocify.css" rel="stylesheet">
+    <link href="css/prettify.css" rel="stylesheet" type="text/css">
+    <link href="css/styles.css" rel="stylesheet" type="text/css">
+    <link href="css/rainbow/themes/tomorrow-night.css" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" type="text/css" href="css/rainbowlines/theme.css" media="screen" />
+    <link rel="stylesheet" type="text/css" href="css/animate.css" media="screen" />
+    <!-- Le HTML5 shim, for IE6-8 support of HTML5 elements -->
+    <!--[if lt IE 9]>
+      <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+
+    <!-- Le fav and touch icons -->
+    <link href="favicon.ico" rel="shortcut icon">
+    <!--
+       -<link href="../assets/ico/apple-touch-icon-144-precomposed.png" rel="apple-touch-icon-precomposed" sizes="144x144">
+       -<link href="../assets/ico/apple-touch-icon-114-precomposed.png" rel="apple-touch-icon-precomposed" sizes="114x114">
+       -<link href="../assets/ico/apple-touch-icon-72-precomposed.png" rel="apple-touch-icon-precomposed" sizes="72x72">
+       -<link href="../assets/ico/apple-touch-icon-57-precomposed.png" rel="apple-touch-icon-precomposed">
+       -->
+  </head>
+
+  <body>
+    <a id="fork-me" href="https://github.com/coderofsalvation/bashlive" target="_blank"><img style="border: 0px currentColor; border-image: none; top: 0px; right: 0px; position: fixed; z-index: 999999;" alt="Fork me on GitHub" src="https://s3.amazonaws.com/github/ribbons/forkme_right_white_ffffff.png"></a>
+   <nav class="navbar navbar-default navbar-fixed-top" role="navigation" style="margin-bottom:120px;">
+  <!-- Brand and toggle get grouped for better mobile display -->
+  <div class="navbar-header">
+    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+      <span class="sr-only">Toggle navigation</span>
+      <span class="icon-bar"></span>
+      <span class="icon-bar"></span>
+      <span class="icon-bar"></span>
+    </button>
+    <a class="navbar-brand" href="/"><img alt="" src="logo.small.gif"/></a>
+  </div>
+
+  <!-- Collect the nav links, forms, and other content for toggling -->
+  <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+    <ul class="nav navbar-nav">
+      <!--
+         -<li class="active"><a href="#">Link</a></li>
+         -<li><a href="#">Link</a></li>
+         -->
+         <li><a href="/">Home</a></li>
+         <li><a href="features.html">Features</a></li>
+         <li><a href="webpipes-unix-bash.html">Webpipes</a></li>
+      <li class="dropdown">
+        <a href="#" class="dropdown-toggle" data-toggle="dropdown">API <b class="caret"></b></a>
+        <ul class="dropdown-menu">
+          <li><a href="functions.html">Functions</a></li>
+          <li><a href="webpipes.html">Webpipes</a></li>
+          <li><a href="community.html">Community</a></li>
+          <li><a href="http://www.gnu.org/software/bash/manual/bash.html">Bash Reference</a></li>
+          <li class="divider"></li>
+          <li><a target="_blank" href="https://raw.github.com/coderofsalvation/bashlive.repo/master/index.json">JSON ball</a></li>
+        </ul>
+      </li>
+      <li class="dropdown">
+        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Resources <b class="caret"></b></a>
+        <ul class="dropdown-menu">
+          <li><a target="_blank" href="http://mywiki.wooledge.org/BashFAQ">Bash FAQ</a></li>
+          <li><a target="_blank" href="http://mywiki.wooledge.org/BashGuide">Bash Guide</a></li>
+          <li><a target="_blank" href="http://wiki.bash-hackers.org">Bash Wiki</a></li>
+          <li class="divider"></li>
+          <li><a target="_blank" onclick="alert('Please bear in mind to apply to the following protocol \nwhen asking questions. In a question mention at least:\n\n 1) your desired situation\n2) your current situation \n3) your attempts.\n\nThank you.')" href="http://webchat.freenode.net/?channels=%23bash&uio=MTE9NzIaa">Bash Chat</a></li>
+          <li class="divider"></li>
+          <li><a target="_blank" href="http://www.playterm.org/">Replay terminal online</a></li>
+          <li><a target="_blank" href="http://www.shellcheck.net/">Script analyzer</a></li>
+          <li><a target="_blank" href="http://www.compileonline.com/execute_bash_online.php">Test Bash Online</a></li>
+        </ul>
+    </ul>
+  </div><!-- /.navbar-collapse -->
+</nav>
+     
+
+    <div class="container-fluid" style="margin-top:50px;">
+      <div class="row">
+        <div class="tocify col-sm-3 col-md-3">
+          <div id="toc">
+          </div><!--/.well -->
+        </div><!--/span-->
+        <div class="col-sm-9 col-md-9">
+          <div>
+            <h1 style="display:inline">Features</h1>
+          </div>
+          <br>
+          <pre  data-language="csharp" style="display:none">        
+			<code data-language="csharp" style="display:none"></code></pre>
+          <p>
+            <br>
+            <ul>
+              <li>Search thru online snippets</li>
+              <li>View them, source them</li>
+              <li>Bake your snippets into one shellscriptfile</li>
+              <li>use local or remote webpipes to let webapplications appear as unix commands </li>
+              <li>free bashlive webpipes: processing-tools for html/csv/json markuplanguages e.g.</li>
+            </ul>
+          </p>
+          <p>
+             BASHLIVE is not a static library nor an extra dependency for your shellcode, it decorates bash and adheres to the <a target="_blank" href="http://en.wikipedia.org/wiki/Live_coding">livecoding trend</a>. <br>
+          </p>
+  <h2>Webpipes!</h2>          
+  <p>
+  Pipe things thru a webpipe/api in the cloud like a RESTful ninja
+  </p>
+  <pre>        
+    <code>$ args=(-H "x-auth-token: 04e40" "http://foo.com/api/v2")
+    $ curl -X PUT "${args[@]}"/dominate" --data '{"item":"world"}' | jsonpath \$['result'] 
+	{
+          "msg": "not going to happen",
+	  "reason": "Chuck Norris"
+        }</code>
+          </pre>
+  <p>
+    See the <a href="webpipes-unix-bash.html">webpipes</a>-page for more info.
+  </p>  
+  <h2>Handle dataformats!</h2>          
+  <p>Bash has no support for mangling json/csv/xml data. Bashlive webpipes take care of this (in Beta).</p>
+          <pre  data-language="csharp">        
+            <code  data-language="csharp">
+$ echo '<items><item foo="bar"><one>1</one></item></items>' | xml2json
+{"item":[{"@attributes":{"foo":"bar","nodeValue":"1"},"one":{}}]}
+$ curl -X PUT "${args[@]}"/dominate" --data '{"item":"world"}' | json2csv
+            </code>
+          </pre>
+  <h2>Readable oneliners!</h2>          
+  <p>Your collegues will finally understand the oneliners you post in the workchat:</p>
+          <pre  data-language="csharp">        
+            <code  data-language="csharp">
+		cat foo.csv | getcsv 3 | trim | substr 0 20
+            </code>
+          </pre>
+          <h2>Easily source remote configs</h2>
+          <pre  data-language="csharp">        
+			<code data-language="csharp">
+# for all people who dont care about security (prototyping stage e.g.):
+# here's how to source external stuff 
+/ https://gist.github.com/username/9827398423/raw/mylibrary.bash!
+</code>
+          </pre>
+          <h2>Improve share- and readability</h2>
+        <p>
+        BASHLIVE scripts can use the library functions (<a target="_blank" href="http://bashlive.com/functions.html" >see functions API</a>) and can be removed/baked later<br>
+        </p>
+
+          <pre  data-language="csharp">        
+			<code data-language="csharp">
+#!/bin/bash
+. bashlive    
+/ /bash/function/string/trim!
+/ /myrepo/function/string/wraplines!
+
+echo " im being processed by online gist-functions " | trim | wraplines
+</code>
+          </pre>
+      <h2>Bake into script</h2>
+        <p>
+        Just run this command on the previous script ('myapp') to embed the functions in there:
+        </p>
+          <pre  data-language="csharp">        
+            <code  data-language="csharp">
+$ / myapp
+freeze bashlive into script? (y/n) y
+$ cat myapp 
+
+  #!/bin/bash 
+  # generated by bashlive
+
+  # source: https://gist.github.com/coderofsalvation/8328455
+  # remove leading and trailing whitespaces
+  # usage: echo " foo bar " | trim 
+  
+  trim(){
+      cat - | sed -e 's/^ *//g' -e 's/ *$//g'
+  }
+
+  [MORE]
+            </code>
+          </pre>
+          <h2>Updating</h2>
+          <br>
+            <p>Make sure you run this command once in a while:</p>
+          <pre  data-language="csharp">        
+            <code  data-language="csharp">
+$ bashlive::update 
+bashlive> indexing 'https://raw2.github.com/../'
+bashlive> done (1664 items were indexed)
+</code></pre>
+            <p>This will wipe out the cache, and re-index all (newly added) online resources.<br>
+                For featurerequest <a target="_blank" href="https://github.com/coderofsalvation/bashlive/issues">create an issue with an 'enhancement'-label</a>
+            </p>
+          <br>
+          <h2>What about security?</h2>
+          <Br>
+          <p class="well">
+          Private completion repos and http-authenticated urls are possible.
+          Also, BASHLIVE will ask you before inserting/sourcing online code (unless '!' is used). Beyond that, common sense, knowledge and experience is a must.<br>Keep in mind BASHLIVE is focused on prototyping: dont blame a monkey for not being a horse.
+          </p>
+          <h2>JSON (API) Accessible code repos</h2>
+          <br>
+          <p class="well">
+          BASHLIVE repositories can be accessed using JSON. For example the official repo can be accessed <a target="_blank" href="https://raw.github.com/coderofsalvation/bashlive.repo/master/index.json">here</a>
+          </p>
+          <h2>Add/share your project/code</h2>
+          <br>
+          <p class="well">
+          Just fork a repo on github (for bash use <a href="https://github.com/coderofsalvation/bashlive.repo" target="_blank">this repo</a>), add your snippets, and do a pull request.
+          Sharing is caring. Bash snippets and functions are scattered around forums e.g., lets change that shall we?
+</p>
+          <h2>Private completion repos</h2>
+          <p class="well">
+            Enable private repos by adding an index-file to the bashlive script itself.<br>
+            The easiest way is to manually create an index.txt file <a target="_blank" href="https://gist.github.com/coderofsalvation/b98b28ecefcc8afcb8ad">like this</a>
+          </p>
+<p>
+            As you might have noticed, the indexfile-format is tabdelimited (or 4 space-delimited) like so:
+</p>
+          <pre  data-language="csharp">        
+            <code  data-language="csharp">
+ &lt;path&gt;&lt;tab&gt;&lt;description&gt;&lt;tab&gt;&lt;url&gt;
+</code></pre>
+          <p>
+             Store the indexfile on the web, and add the url to bashlive:
+          </p>
+          <pre>
+            <code>
+ REPOS=("https://raw.github.com/coderofsalvation/bashlive.repo/master/index.txt") 
+ REPOS+=("https://raw.github.com/yourname/bashlive.yourlanguage/master/index.txt")</code>
+          </pre>
+          <p>
+            Run 'bashlive::update' and 'bashlives' to test it.<br><br>
+            Lazy hackers are adviced to generate this indexfile.<br>
+            To generate it, setup your own repo, by forking <a href="https://github.com/coderofsalvation/bashlive.repo" target="_blank">this repo</a> and run './compile'.<br>
+            The advantage is that it writes raw-gisturls (last commit) to index, while you can maintain simple gisturls.
+          </p>
+          <h2>Updating or resetting bashlive</h2>
+          <p>Make sure to run this to update the local cache</p>
+          <pre  data-language="csharp">        
+            <code  data-language="csharp">
+$ bashlive::update 
+  indexing 'https://raw.github.com/coderofsalvation/bashlive.repo/master/index.txt'
+  indexing 'https://raw.github.com/yourname/bashlive.yourlanguage/master/index.txt'
+  done (329 bashlives collected)
+            </code>
+          </pre>
+          <h2>Community / I need help!</h2>
+          <p class="well">For bashlive-related questions create an issue <a href="https://github.com/coderofsalvation/bashlive.repo/issues" target="_blank">here</a>. Visit the <a target="_blank" href="https://kiwiirc.com/client/irc.freenode.net/#bash">#bash chatchannel</a> for bash-related questions (Be polite: first state your situation, your desired situation and attempts in one line). BASHLIVE related questions can be asked using the <a target="_blank" href="https://github.com/coderofsalvation/bashlive/issues">Issuetracker</a>.
+          </p>
+      </div>
+    </div><!--/.fluid-container-->
+
+    <!-- Le javascript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="js/rainbow/rainbow.min.js"></script>
+    <script src="js/rainbow/language/generic.js"></script>
+    <script src="js/rainbow/language/html.js"></script>
+    <script src="js/rainbow/language/css.js"></script>
+    <script src="js/rainbow/language/javascript.js"></script>
+    <script src="js/rainbowlines/rainbow.linenumbers.js"></script>
+    <script src="js/jquery.min.js"></script>
+    <script src="js/jquery-ui.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/jquery.tocify.min.js"></script>
+    <script src="js/prettify.js"></script>
+
+    <script>
+        $(function() {
+
+          $("#toc").tocify({ selectors: "h2, h3, h4", scrollTo: 60, highlightOffset: 60, extendPage: true });
+
+          prettyPrint();
+
+          $(".optionName").popover({ trigger: "hover", container: "body" });
+
+          $("a[href='#']").click(function(event) {
+
+              event.preventDefault();
+
+          });
+
+          Rainbow.color();
+        });
+
+        $(document).ready(function(){
+        });
+    </script>
+  
+</div></body></html>

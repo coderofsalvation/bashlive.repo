@@ -1,0 +1,88 @@
+#!/bin/bash 
+BASHLIVEREPODIR=/home/sqz/projects/bashlive.repo
+cd src
+CURDIR="$(pwd)"
+declare -A headings
+
+headings['function']="
+  <style type='text/css'>pre { font-size:0.8em; }</style>
+  <h1>Bashlive function reference</h2>
+  <p>Bashlive features a basic repository of functions which can be used in your bash apps.
+     We like to encourage you to leave feedback, or by just forking the repo on github <a href='https://github.com/coderofsalvation/bashlive.repo' target='_blank'>here</a>, add your snippets, and do a pull request push updates.
+<br><br><small>Last updated: $(date)</small>
+  </p>
+    <pre  data-language='csharp' style='display:none'>                                                                                        
+      <code  data-language='csharp'></code>
+    </pre>
+"
+
+headings['webpipe']="
+  <h1 style="display:inline">Webpipes</h1>
+  <p><br>
+  Instead of being limited to local commands, webpipes can extend your bashsession with online services.
+  <br><br>
+  Bashlive has a webpipe index, so look <a href="webpipes-unix-bash">here</a> to index it on your system.
+  <br>
+  <br><small>Last updated: $(date)</small>
+  </p>
+    <pre  data-language='csharp' style='display:none'>                                                                                        
+      <code  data-language='csharp'></code>
+    </pre>
+"
+
+compilepage(){
+  { cat "tpl/head.html" | TITLE="$2" tpl/bashdown ; cat "$1"; cat "tpl/foot.html"; } 
+}
+
+reference(){
+  items=("function")
+  for item in "${items[@]}"; do 
+    cd $BASHLIVEREPODIR
+    TITLE="BASHLIVE $item reference"
+    printf "\ngenerating '$TITLE'"
+    echo "${headings[$item]}" > "$CURDIR/tpl/$items.compiled.html"
+    PRESET=$item ./compiledocs repo/bash/$item >> "$CURDIR/tpl/$items.compiled.html"
+    cd "$CURDIR" && compilepage tpl/$items.compiled.html "$TITLE" > "$CURDIR/"$item"s.html"
+  done
+  echo ""
+}
+
+webpipes(){
+  cd $BASHLIVEREPODIR
+  item=webpipe
+  TITLE="BASHLIVE $item reference"
+  echo "${headings[$item]}" > "$CURDIR/tpl/$items.compiled.html"
+  PRESET=$item ./compiledocs repo/$item >> "$CURDIR/tpl/$items.compiled.html"
+  cd "$CURDIR" && compilepage tpl/$items.compiled.html "$TITLE" > "$CURDIR/"$item"s.html"
+}
+
+index(){
+  TITLE="BASHLIVE, a BASH livecodingcommunitysnippetfunctionframeworkcoderepository-tool for bashhackers"
+  compilepage tpl/index.html "$TITLE" > index.html 
+}
+
+aboutwebpipes(){
+  TITLE="BASH Webpipes, dont limit yourself to local commands, use bash in the cloud using BASHLIVE"
+  compilepage tpl/webpipes-unix-bash.html "$TITLE" > webpipes-unix-bash.html
+}
+
+community(){
+  TITLE="bashlive community, apt-get / yum for bash scripts, install bash applications from the cloud"
+  compilepage tpl/community.html "$TITLE" > community.html
+}
+
+features(){
+  TITLE="bashlive features, bake bash scripts, use snippets from the cloud at your fingertips"
+  compilepage tpl/features.html "$TITLE" > features.html
+}
+
+webpipeurls(){
+  php_urls="$(curl -s "http://webpipephp-bashlive.rhcloud.com")"
+  #coffee_urls="$(curl -s http://webpipecoffee-bashlive.rhcloud.com)"
+  printf "%s" "$php_urls$coffee_urls" > webpipes/index.html
+}
+
+index; features; aboutwebpipes; community; webpipeurls
+[[ -n $WEBPIPES ]] && webpipes
+[[ -n $REF ]] && reference 
+exit 0
